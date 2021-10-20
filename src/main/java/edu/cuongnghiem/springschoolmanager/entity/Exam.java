@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,14 +20,11 @@ import java.util.Set;
 @Entity
 public class Exam extends BaseEntity{
 
-    @Column(name = "date")
-    private LocalDate date;
-
     @OneToOne
     @JoinColumn(name = "school_year_id")
     private SchoolYear schoolYear;
 
-    @Enumerated(value = EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private ExamType examType;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "exam")

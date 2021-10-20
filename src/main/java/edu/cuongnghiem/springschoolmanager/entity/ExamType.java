@@ -5,24 +5,28 @@ package edu.cuongnghiem.springschoolmanager.entity;
  **/
 
 public enum ExamType {
-    KTM1("Kiểm tra miệng 1"),
-    KTM2("Kiểm tra miệng 2"),
-    KT15P1("Kiểm tra 15 phút 1"),
-    KT15P2("Kiểm tra 15 phút 2"),
-    KT15P3("Kiểm tra 15 phút 3"),
-    KT1T1("Kiểm tra 1 tiết 1"),
-    KT1T2("Kiểm tra 1 tiết 2"),
-    KT1T3("Kiểm tra 1 tiết 3"),
-    KTCK("Kiểm tra cuối kỳ");
+    KTM1_HK1("HK1"),
+    KTM2_HK1("HK1"),
+    KT15P1_HK1("HK1"),
+    KT15P2_HK1("HK1"),
+    KT1T1_HK1("HK1"),
+    KT1T2_HK1("HK1"),
+    KTCK_HK1("HK1"),
+    KTM1_HK2("HK2"),
+    KTM2_HK2("HK2"),
+    KT15P1_HK2("HK2"),
+    KT15P2_HK2("HK2"),
+    KT1T1_HK2("HK2"),
+    KT1T2_HK2("HK2"),
+    KTCK_HK2("HK2");
 
-    private String name;
+    private String semester;
 
-    ExamType(String name) {
-        this.name = name;
+    ExamType(String semester) {
+        this.semester = semester;
     }
 
-    @Override
-    public String toString() {
-        return this.name;
+    public String getSemester() {
+        return semester;
     }
 }
