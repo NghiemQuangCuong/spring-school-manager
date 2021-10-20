@@ -23,11 +23,15 @@ public class ClassRoom extends BaseEntity{
     @Column(name = "name")
     private String name;
 
+    @OneToOne
+    @JoinColumn(name = "school_year_id")
+    private SchoolYear schoolYear;
+
     @ManyToOne
     @JoinColumn(name = "class_type_id")
     private ClassType classType;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "classRoom")
+    @OneToMany(mappedBy = "classRoom")
     private Set<Student> students = new HashSet<>();
 
     @ManyToMany

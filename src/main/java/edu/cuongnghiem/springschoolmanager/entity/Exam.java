@@ -24,11 +24,9 @@ public class Exam extends BaseEntity{
     @Column(name = "date")
     private LocalDate date;
 
-    @Column(name = "first_year")
-    private int firstYear;
-
-    @Column(name = "last_year")
-    private int lastYear;
+    @OneToOne
+    @JoinColumn(name = "school_year_id")
+    private SchoolYear schoolYear;
 
     @Enumerated(value = EnumType.ORDINAL)
     private ExamType examType;
