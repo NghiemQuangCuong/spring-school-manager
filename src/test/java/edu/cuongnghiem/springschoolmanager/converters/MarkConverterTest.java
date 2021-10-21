@@ -90,6 +90,5 @@ class MarkConverterTest {
         assertEquals(CLASS_ROOM_ID, entity.getStudent().getClassRoom().getId());
         assertEquals(CLASS_TYPE_ID, entity.getStudent().getClassRoom().getClassType().getId());
         assertEquals(TEACHERS_SET_SIZE, entity.getStudent().getClassRoom().getTeachers().size());
-
     }
 }
