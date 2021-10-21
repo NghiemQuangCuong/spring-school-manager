@@ -20,6 +20,8 @@ public class MarkConverter implements EntityCommandConverter<Mark, MarkCommand> 
 
     @Override
     public Mark commandToEntity(MarkCommand command) {
+        if (command == null)
+            return null;
         return Mark.builder()
                 .id(command.getId())
                 .score(command.getScore())
@@ -30,6 +32,8 @@ public class MarkConverter implements EntityCommandConverter<Mark, MarkCommand> 
 
     @Override
     public MarkCommand entityToCommand(Mark entity) {
+        if (entity == null)
+            return null;
         return MarkCommand.builder()
                 .id(entity.getId())
                 .score(entity.getScore())

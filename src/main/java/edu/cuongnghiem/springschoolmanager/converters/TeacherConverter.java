@@ -19,6 +19,8 @@ public class TeacherConverter implements EntityCommandConverter<Teacher, Teacher
 
     @Override
     public Teacher commandToEntity(TeacherCommand command) {
+        if (command == null)
+            return null;
         return Teacher.builder()
                 .id(command.getId())
                 .firstName(command.getFirstName())
@@ -29,6 +31,8 @@ public class TeacherConverter implements EntityCommandConverter<Teacher, Teacher
 
     @Override
     public TeacherCommand entityToCommand(Teacher entity) {
+        if (entity == null)
+            return null;
         return TeacherCommand.builder()
                 .id(entity.getId())
                 .firstName(entity.getFirstName())

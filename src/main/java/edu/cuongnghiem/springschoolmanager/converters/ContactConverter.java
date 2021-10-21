@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 public class ContactConverter implements EntityCommandConverter<Contact, ContactCommand> {
     @Override
     public Contact commandToEntity(ContactCommand command) {
+        if (command == null)
+            return null;
         return Contact.builder()
                 .phone1(command.getPhone1())
                 .phone2(command.getPhone2())
@@ -21,6 +23,8 @@ public class ContactConverter implements EntityCommandConverter<Contact, Contact
 
     @Override
     public ContactCommand entityToCommand(Contact entity) {
+        if (entity == null)
+            return null;
         return ContactCommand.builder()
                 .phone1(entity.getPhone1())
                 .phone2(entity.getPhone2())

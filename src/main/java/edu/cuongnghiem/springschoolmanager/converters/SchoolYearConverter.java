@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 public class SchoolYearConverter implements EntityCommandConverter<SchoolYear, SchoolYearCommand> {
     @Override
     public SchoolYear commandToEntity(SchoolYearCommand command) {
+        if (command == null)
+            return null;
         return SchoolYear.builder()
                 .id(command.getId())
                 .firstYear(command.getFirstYear())
@@ -20,6 +22,8 @@ public class SchoolYearConverter implements EntityCommandConverter<SchoolYear, S
 
     @Override
     public SchoolYearCommand entityToCommand(SchoolYear entity) {
+        if (entity == null)
+            return null;
         return SchoolYearCommand.builder()
                 .id(entity.getId())
                 .firstYear(entity.getFirstYear())

@@ -25,6 +25,8 @@ public class ClassRoomConverter implements EntityCommandConverter<ClassRoom, Cla
 
     @Override
     public ClassRoom commandToEntity(ClassRoomCommand command) {
+        if (command == null)
+            return null;
         ClassRoom entity = ClassRoom.builder()
                 .id(command.getId())
                 .name(command.getName())
@@ -39,6 +41,8 @@ public class ClassRoomConverter implements EntityCommandConverter<ClassRoom, Cla
 
     @Override
     public ClassRoomCommand entityToCommand(ClassRoom entity) {
+        if (entity == null)
+            return null;
         ClassRoomCommand command = ClassRoomCommand.builder()
                 .id(entity.getId())
                 .name(entity.getName())

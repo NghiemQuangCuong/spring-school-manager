@@ -20,6 +20,8 @@ public class ExamConverter implements EntityCommandConverter<Exam, ExamCommand> 
 
     @Override
     public Exam commandToEntity(ExamCommand command) {
+        if (command == null)
+            return null;
         return Exam.builder()
                 .id(command.getId())
                 .schoolYear(schoolYearConverter.commandToEntity(command.getSchoolYearCommand()))
@@ -30,6 +32,8 @@ public class ExamConverter implements EntityCommandConverter<Exam, ExamCommand> 
 
     @Override
     public ExamCommand entityToCommand(Exam entity) {
+        if (entity == null)
+            return null;
         return ExamCommand.builder()
                 .id(entity.getId())
                 .schoolYearCommand(schoolYearConverter.entityToCommand(entity.getSchoolYear()))

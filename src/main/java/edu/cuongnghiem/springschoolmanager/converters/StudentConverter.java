@@ -20,6 +20,8 @@ public class StudentConverter implements EntityCommandConverter<Student, Student
 
     @Override
     public Student commandToEntity(StudentCommand command) {
+        if (command == null)
+            return null;
         return Student.builder()
                 .id(command.getId())
                 .firstName(command.getFirstName())
@@ -31,6 +33,8 @@ public class StudentConverter implements EntityCommandConverter<Student, Student
 
     @Override
     public StudentCommand entityToCommand(Student entity) {
+        if (entity == null)
+            return null;
         return StudentCommand.builder()
                 .id(entity.getId())
                 .firstName(entity.getFirstName())

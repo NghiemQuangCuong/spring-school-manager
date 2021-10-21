@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 public class SubjectConverter implements EntityCommandConverter<Subject, SubjectCommand> {
     @Override
     public Subject commandToEntity(SubjectCommand command) {
+        if (command == null)
+            return null;
         return Subject.builder()
                 .id(command.getId())
                 .name(command.getName())
@@ -19,6 +21,8 @@ public class SubjectConverter implements EntityCommandConverter<Subject, Subject
 
     @Override
     public SubjectCommand entityToCommand(Subject entity) {
+        if (entity == null)
+            return null;
         return SubjectCommand.builder()
                 .id(entity.getId())
                 .name(entity.getName())

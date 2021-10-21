@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 public class ClassTypeConverter implements EntityCommandConverter<ClassType, ClassTypeCommand> {
     @Override
     public ClassType commandToEntity(ClassTypeCommand command) {
+        if (command == null)
+            return null;
         return ClassType.builder()
                 .id(command.getId())
                 .name(command.getName())
@@ -19,6 +21,8 @@ public class ClassTypeConverter implements EntityCommandConverter<ClassType, Cla
 
     @Override
     public ClassTypeCommand entityToCommand(ClassType entity) {
+        if (entity == null)
+            return null;
         return ClassTypeCommand.builder()
                 .id(entity.getId())
                 .name(entity.getName())
