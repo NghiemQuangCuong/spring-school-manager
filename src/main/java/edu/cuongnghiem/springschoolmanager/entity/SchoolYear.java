@@ -1,6 +1,6 @@
 package edu.cuongnghiem.springschoolmanager.entity;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,9 +14,16 @@ import javax.persistence.Entity;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class SchoolYear extends BaseEntity{
+
+    @Builder
+    public SchoolYear(Long id, Integer firstYear, Integer secondYear) {
+        super(id);
+        this.firstYear = firstYear;
+        this.secondYear = secondYear;
+    }
+
     private Integer firstYear;
     private Integer secondYear;
 }

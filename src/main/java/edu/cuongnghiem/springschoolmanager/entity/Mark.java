@@ -1,6 +1,6 @@
 package edu.cuongnghiem.springschoolmanager.entity;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,9 +17,16 @@ import javax.persistence.ManyToOne;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class Mark extends BaseEntity{
+
+    @Builder
+    public Mark(Long id, Float score, Student student, Exam exam) {
+        super(id);
+        this.score = score;
+        this.student = student;
+        this.exam = exam;
+    }
 
     @Column(name = "score")
     private Float score;

@@ -1,6 +1,6 @@
 package edu.cuongnghiem.springschoolmanager.entity;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,9 +16,18 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class Exam extends BaseEntity{
+
+    @Builder
+    public Exam(Long id, SchoolYear schoolYear, ExamType examType, Set<Mark> marks, Subject subject) {
+        super(id);
+        this.schoolYear = schoolYear;
+        this.examType = examType;
+        if (marks != null)
+            this.marks = marks;
+        this.subject = subject;
+    }
 
     @OneToOne
     @JoinColumn(name = "school_year_id")

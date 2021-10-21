@@ -1,6 +1,6 @@
 package edu.cuongnghiem.springschoolmanager.entity;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,9 +19,16 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class ClassType extends BaseEntity{
+
+    @Builder
+    public ClassType(Long id, String name, Set<ClassRoom> classes) {
+        super(id);
+        this.name = name;
+        if (classes != null)
+            this.classes = classes;
+    }
 
     @Column(name = "name")
     private String name;

@@ -1,6 +1,6 @@
 package edu.cuongnghiem.springschoolmanager.entity;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,9 +19,17 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class Subject extends BaseEntity {
+
+    @Builder
+    public Subject(Long id, String name, Set<Exam> exams) {
+        super(id);
+        this.name = name;
+        if (exams != null)
+            this.exams = exams;
+    }
+
     @Column(name = "name")
     private String name;
 

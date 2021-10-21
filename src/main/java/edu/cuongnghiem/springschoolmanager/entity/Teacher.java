@@ -1,6 +1,6 @@
 package edu.cuongnghiem.springschoolmanager.entity;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,9 +18,17 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class Teacher extends Person{
+
+    @Builder
+    public Teacher(Long id, String firstName, String lastName, Contact contact, Set<ClassRoom> classes) {
+        super(id, firstName, lastName);
+        this.contact = contact;
+        if (classes != null)
+            this.classes = classes;
+    }
+
     @Embedded
     private Contact contact;
 
