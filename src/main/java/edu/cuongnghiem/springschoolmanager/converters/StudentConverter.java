@@ -9,13 +9,34 @@ import org.springframework.stereotype.Component;
  **/
 @Component
 public class StudentConverter implements EntityCommandConverter<Student, StudentCommand> {
+
+    private final ClassRoomConverter classRoomConverter;
+    private final ContactConverter contactConverter;
+
+    public StudentConverter(ClassRoomConverter classRoomConverter, ContactConverter contactConverter) {
+        this.classRoomConverter = classRoomConverter;
+        this.contactConverter = contactConverter;
+    }
+
     @Override
     public Student commandToEntity(StudentCommand command) {
-        return null;
+        return Student.builder()
+                .id(command.getId())
+                .firstName(command.getFirstName())
+                .lastName(command.getLastName())
+                .classRoom(classRoomConverter.commandToEntity(command.getClassRoomCommand()))
+                .contact(contactConverter.commandToEntity(command.getContactCommand()))
+                .build();
     }
 
     @Override
     public StudentCommand entityToCommand(Student entity) {
-        return null;
+        return StudentCommand.builder()
+                .id(entity.getId())
+                .firstName(entity.getFirstName())
+                .lastName(entity.getLastName())
+                .classRoomCommand(classRoomConverter.entityToCommand(entity.getClassRoom()))
+                .contactCommand(contactConverter.entityToCommand(entity.getContact()))
+                .build();
     }
 }

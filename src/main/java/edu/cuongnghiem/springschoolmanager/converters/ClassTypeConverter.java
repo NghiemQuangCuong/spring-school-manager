@@ -11,11 +11,17 @@ import org.springframework.stereotype.Component;
 public class ClassTypeConverter implements EntityCommandConverter<ClassType, ClassTypeCommand> {
     @Override
     public ClassType commandToEntity(ClassTypeCommand command) {
-        return null;
+        return ClassType.builder()
+                .id(command.getId())
+                .name(command.getName())
+                .build();
     }
 
     @Override
     public ClassTypeCommand entityToCommand(ClassType entity) {
-        return null;
+        return ClassTypeCommand.builder()
+                .id(entity.getId())
+                .name(entity.getName())
+                .build();
     }
 }

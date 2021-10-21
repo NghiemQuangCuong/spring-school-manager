@@ -11,11 +11,17 @@ import org.springframework.stereotype.Component;
 public class SubjectConverter implements EntityCommandConverter<Subject, SubjectCommand> {
     @Override
     public Subject commandToEntity(SubjectCommand command) {
-        return null;
+        return Subject.builder()
+                .id(command.getId())
+                .name(command.getName())
+                .build();
     }
 
     @Override
     public SubjectCommand entityToCommand(Subject entity) {
-        return null;
+        return SubjectCommand.builder()
+                .id(entity.getId())
+                .name(entity.getName())
+                .build();
     }
 }

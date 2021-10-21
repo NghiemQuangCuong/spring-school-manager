@@ -10,13 +10,30 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class TeacherConverter implements EntityCommandConverter<Teacher, TeacherCommand> {
+
+    private final ContactConverter contactConverter;
+
+    public TeacherConverter(ContactConverter contactConverter) {
+        this.contactConverter = contactConverter;
+    }
+
     @Override
     public Teacher commandToEntity(TeacherCommand command) {
-        return null;
+        return Teacher.builder()
+                .id(command.getId())
+                .firstName(command.getFirstName())
+                .lastName(command.getLastName())
+                .contact(contactConverter.commandToEntity(command.getContactCommand()))
+                .build();
     }
 
     @Override
     public TeacherCommand entityToCommand(Teacher entity) {
-        return null;
+        return TeacherCommand.builder()
+                .id(entity.getId())
+                .firstName(entity.getFirstName())
+                .lastName(entity.getLastName())
+                .contactCommand(contactConverter.entityToCommand(entity.getContact()))
+                .build();
     }
 }
