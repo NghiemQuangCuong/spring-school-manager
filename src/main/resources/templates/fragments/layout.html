@@ -10,7 +10,7 @@
     <link th:href="@{/css/main.css}" rel="stylesheet">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="height: 120px">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light p-0">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">
                 <img th:src="@{/img/logo.png}" alt="Logo" width="200px" height="auto" />
@@ -21,7 +21,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent" >
                 <ul class="navbar-nav me-auto" th:remove="all">
                     <li class="nav-item" th:fragment="navItem (link, active, text)">
-                        <a th:class="${active == menu ? 'nav-link p-lg-5 p-sm-2 active active-bg' : 'nav-link p-lg-5 p-sm-2'}"
+                        <a th:class="${active == menu ? 'nav-link p-lg-5 p-2 active active-bg' : 'nav-link p-lg-5 p-2'}"
                            th:href="${link}" th:text="${text}">Home</a>
                     </li>
                 </ul>
