@@ -1,16 +1,14 @@
 package edu.cuongnghiem.springschoolmanager.command;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Builder;
+import lombok.Data;
 
 /**
  * Created by cuongnghiem on 21/10/2021
  **/
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
+@Builder
 public class ContactCommand {
     private String phone1;
     private String phone2;

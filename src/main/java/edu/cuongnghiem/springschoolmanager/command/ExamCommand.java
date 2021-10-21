@@ -1,17 +1,15 @@
 package edu.cuongnghiem.springschoolmanager.command;
 
 import edu.cuongnghiem.springschoolmanager.entity.ExamType;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Builder;
+import lombok.Data;
 
 /**
  * Created by cuongnghiem on 21/10/2021
  **/
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
+@Builder
 public class ExamCommand {
     private Long id;
     private SchoolYearCommand schoolYearCommand;
