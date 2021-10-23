@@ -13,12 +13,12 @@ import org.springframework.web.servlet.ModelAndView;
 @ControllerAdvice
 public class ExceptionHandlerController {
 
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(Exception.class)
-    public ModelAndView generalException(Exception ex) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("message", ex.getMessage());
-        modelAndView.setViewName("/exception/404");
-        return modelAndView;
-    }
+//    @ResponseStatus(HttpStatus.NOT_FOUND)
+//    @ExceptionHandler(Exception.class)
+//    public ModelAndView generalException(Exception ex) {
+//        ModelAndView modelAndView = new ModelAndView();
+//        modelAndView.addObject("message", ex.getMessage());
+//        modelAndView.setViewName("/exception/404");
+//        return modelAndView;
+//    }
 }

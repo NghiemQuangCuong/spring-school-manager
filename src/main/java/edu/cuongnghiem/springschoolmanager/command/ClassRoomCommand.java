@@ -25,4 +25,8 @@ public class ClassRoomCommand {
     private String name;
     private ClassTypeCommand classTypeCommand;
     private Set<TeacherCommand> teacherCommands = new HashSet<>();
+
+    // Additional fields for some service. Not all command object has these. Information display only.
+    private Long numberOfTeachers;
+    private Long numberOfStudents;
 }
