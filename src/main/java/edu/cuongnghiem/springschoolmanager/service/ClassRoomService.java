@@ -19,5 +19,5 @@ public interface ClassRoomService {
     ClassRoom getClassRoomById(Long id);
     ClassRoom saveClassRoom(ClassRoom classRoom);
     List<StudentCommand> getStudentsCommandFromClassRoomId(Long id);
-    Page<StudentCommand> getStudentsCommandPagingFromClassRoomId(Long id, int page, int recordsPerPage);
+    Page<StudentCommand> getStudentsCommandPagingFromClassRoomIdAndName(Long id, int page, int recordsPerPage, String name);
 }

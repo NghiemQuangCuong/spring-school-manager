@@ -72,7 +72,7 @@ class ClassRoomControllerTest {
     @Test
     void getClassDetails() throws Exception {
         when(classRoomService.getClassRoomCommandById(anyLong())).thenReturn(new ClassRoomCommand());
-        when(classRoomService.getStudentsCommandPagingFromClassRoomId(1L, 1, 10))
+        when(classRoomService.getStudentsCommandPagingFromClassRoomIdAndName(1L, 1, 10, ""))
                 .thenReturn(new PageImpl<StudentCommand>(new ArrayList<>()));
         mockMvc.perform(get("/class/1"))
                 .andExpect(status().isOk())

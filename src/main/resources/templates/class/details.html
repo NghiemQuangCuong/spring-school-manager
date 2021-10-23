@@ -17,7 +17,28 @@
                 <div class="card">
                     <h1 class="display-3 card-header p-3" th:inline="text">[[${class.name}]] ([[${class.classTypeCommand.name}]])</h1>
                     <div class="card-body">
-                        <h2 id="studentNav" class="card-title user-select-none" th:inline="text">[[#{listOfStudents}]] (Total: [[${totalStudent}]])</h2>
+                        <h2 id="studentNav" class="card-title user-select-none" th:inline="text">[[#{listOfStudents}]] (Found: [[${totalStudent}]])</h2>
+                        <form>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <input id="classId" type="hidden" th:value="${class.id}">
+                                    <input id="page" type="hidden" th:value="${page}">
+                                    <input id="totalPage" type="hidden" th:value="${totalPage}">
+                                    <input id="name" class="form-control" name="name" th:value="${name}" type="text" placeholder="Find by name...">
+                                </div>
+                                <div class="col-sm-4">
+                                    <select id="recPP" name="recordPerPage" class="form-select">
+                                        <option value="5" th:selected="${recordPerPage == 5}">5</option>
+                                        <option value="10" th:selected="${recordPerPage == 10}">10</option>
+                                        <option value="20" th:selected="${recordPerPage == 20}">20</option>
+                                        <option value="50" th:selected="${recordPerPage == 50}">50</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-3">
+                                    <button class="btn btn-success" th:text="#{find}" type="submit"></button>
+                                </div>
+                            </div>
+                        </form>
                         <table class="table table-hover user-select-none">
                             <thead>
                             <tr>
@@ -36,18 +57,18 @@
                             </tr>
                             </tbody>
                         </table>
-                        <p class="card-text user-select-none text-black-50" th:inline="text">Page [[${page}]]/[[${totalPage}]] </p>
+                        <p class="card-text user-select-none text-black-50" th:inline="text">[[#{page}]] [[${page}]]/[[${totalPage}]] </p>
                         <nav aria-label="Table navigation">
                             <ul class="pagination">
-                                <li class="page-item"><a class="page-link" th:href="@{'/class/' + ${class.id} + '?currentPage=1' + '#studentNav'}" th:text="#{firstPage}">First</a></li>
-                                <li th:if="${page} - 1 > 0" class="page-item"><a class="page-link" th:href="@{'/class/' + ${class.id} + '?currentPage=' + ${page - 1} + '#studentNav'}" th:text="${page - 1}">1</a></li>
-                                <li class="page-item active"><a class="page-link" th:href="@{'/class/' + ${class.id} + '?currentPage=' + ${page}}" th:text="${page}">2</a></li>
-                                <li th:if="${page} + 1 <= ${totalPage}" class="page-item"><a class="page-link" th:href="@{'/class/' + ${class.id} + '?currentPage=' + ${page+1} + '#studentNav'}" th:text="${page+1}">3</a></li>
-                                <li th:if="${page} + 2 <= ${totalPage}" class="page-item"><a class="page-link" th:href="@{'/class/' + ${class.id} + '?currentPage=' + ${page+2} + '#studentNav'}" th:text="${page+2}">4</a></li>
-                                <li th:if="${page} + 3 <= ${totalPage}" class="page-item"><a class="page-link" th:href="@{'/class/' + ${class.id} + '?currentPage=' + ${page+3} + '#studentNav'}" th:text="${page+3}">5</a></li>
-                                <li th:if="${page} + 4 <= ${totalPage}" class="page-item"><a class="page-link" th:href="@{'/class/' + ${class.id} + '?currentPage=' + ${page+4} + '#studentNav'}" th:text="${page+4}">6</a></li>
-                                <li th:if="${page} + 5 <= ${totalPage}" class="page-item"><a class="page-link" th:href="@{'/class/' + ${class.id} + '?currentPage=' + ${page+5} + '#studentNav'}" th:text="${page+5}">7</a></li>
-                                <li class="page-item"><a class="page-link" th:href="@{'/class/' + ${class.id} + '?currentPage=' + ${totalPage} + '#studentNav'}" th:text="#{lastPage}">Last</a></li>
+                                <li class="page-item"><a id="p1" class="page-link" href="#" th:text="#{firstPage}">First</a></li>
+                                <li th:if="${page} - 1 > 0" class="page-item"><a id="p2" href="#" class="page-link"  th:text="${page - 1}">1</a></li>
+                                <li class="page-item active"><a id="p3" class="page-link" href="#" th:text="${page}">2</a></li>
+                                <li th:if="${page} + 1 <= ${totalPage}" class="page-item"><a id="p4" class="page-link" href="#" th:text="${page+1}">3</a></li>
+                                <li th:if="${page} + 2 <= ${totalPage}" class="page-item"><a id="p5" class="page-link" href="#" th:text="${page+2}">4</a></li>
+                                <li th:if="${page} + 3 <= ${totalPage}" class="page-item"><a id="p6" class="page-link" href="#" th:text="${page+3}">5</a></li>
+                                <li th:if="${page} + 4 <= ${totalPage}" class="page-item"><a id="p7" class="page-link" href="#" th:text="${page+4}">6</a></li>
+                                <li th:if="${page} + 5 <= ${totalPage}" class="page-item"><a id="p8" class="page-link" href="#" th:text="${page+5}">7</a></li>
+                                <li class="page-item"><a id="p9" class="page-link" href="#" th:text="#{lastPage}">Last</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -55,5 +76,59 @@
             </div>
         </div>
     </div>
+
+    <script>
+        let classId = document.getElementById("classId").value;
+        let page = document.getElementById("page").value;
+        let name = document.getElementById("name").value;
+        let totalPage = document.getElementById("totalPage").value;
+        let recPP = document.getElementById("recPP").value;
+
+        let p1 = document.getElementById("p1");
+        if (p1 != null)
+            p1.onclick = function () {
+                location.href = `/class/${classId}?currentPage=1&name=${name}&recordPerPage=${recPP}#studentNav` ;
+            }
+        let p2 = document.getElementById("p2");
+        if (p2 != null)
+            p2.onclick = function () {
+                location.href = `/class/${classId}?currentPage=${+page - +1}&name=${name}&recordPerPage=${recPP}#studentNav` ;
+            }
+        let p3 = document.getElementById("p3");
+        if (p3 != null)
+            p3.onclick = function () {
+                location.href = `/class/${classId}?currentPage=${+page}&name=${name}&recordPerPage=${recPP}#studentNav` ;
+            }
+        let p4 = document.getElementById("p4");
+        if (p4 != null)
+            p4.onclick = function () {
+                location.href = `/class/${classId}?currentPage=${+page+1}&name=${name}&recordPerPage=${recPP}#studentNav` ;
+            }
+        let p5 = document.getElementById("p5");
+        if (p5 != null)
+            p5.onclick = function () {
+                location.href = `/class/${classId}?currentPage=${+page+2}&name=${name}&recordPerPage=${recPP}#studentNav` ;
+            }
+        let p6 = document.getElementById("p6");
+        if (p6 != null)
+            p6.onclick = function () {
+                location.href = `/class/${classId}?currentPage=${+page+3}&name=${name}&recordPerPage=${recPP}#studentNav` ;
+            }
+        let p7 = document.getElementById("p7");
+        if (p7 != null)
+            p7.onclick = function () {
+                location.href = `/class/${classId}?currentPage=${+page+4}&name=${name}&recordPerPage=${recPP}#studentNav` ;
+            }
+        let p8 = document.getElementById("p8");
+        if (p8 != null)
+            p8.onclick = function () {
+                location.href = `/class/${classId}?currentPage=${+page+5}&name=${name}&recordPerPage=${recPP}#studentNav` ;
+            }
+        let p9 = document.getElementById("p9");
+        if (p9 != null)
+            p9.onclick = function () {
+                location.href = `/class/${classId}?currentPage=${totalPage}&name=${name}&recordPerPage=${recPP}#studentNav` ;
+            }
+    </script>
 </body>
 </html>

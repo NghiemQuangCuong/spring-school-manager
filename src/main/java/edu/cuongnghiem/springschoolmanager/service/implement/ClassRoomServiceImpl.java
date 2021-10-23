@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by cuongnghiem on 21/10/2021
@@ -115,9 +116,17 @@ public class ClassRoomServiceImpl implements ClassRoomService {
     }
 
     @Override
-    public Page<StudentCommand> getStudentsCommandPagingFromClassRoomId(Long id, int page, int recordsPerPage) {
-        List<StudentCommand> studentCommands =
+    public Page<StudentCommand> getStudentsCommandPagingFromClassRoomIdAndName(Long id, int page, int recordsPerPage, String name) {
+        List<StudentCommand> list =
                 getStudentsCommandFromClassRoomId(id);
+        List<StudentCommand> studentCommands = list.stream().filter(studentCommand -> {
+            String fullName = studentCommand.getFirstName() + ' ' + studentCommand.getLastName();
+            if (fullName.toLowerCase().contains(name.toLowerCase()))
+                return true;
+            return false;
+        }).collect(Collectors.toList());
+        if (studentCommands.size() == 0)
+            return new PageImpl<>(new ArrayList<>());
         if (page > getTotalPage(studentCommands.size(), recordsPerPage) || page <= 0)
             return null;
         boolean finalPage = (page == getTotalPage(studentCommands.size(), recordsPerPage));

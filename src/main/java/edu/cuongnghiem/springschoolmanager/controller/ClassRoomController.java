@@ -55,7 +55,8 @@ public class ClassRoomController {
     public String getDetails(Model model,
                              @PathVariable String id,
                              @RequestParam(name = "currentPage", defaultValue = "1") String currentPage,
-                             @RequestParam(name = "recordPerPage", defaultValue = "10") String recordPerPage) {
+                             @RequestParam(name = "recordPerPage", defaultValue = "10") String recordPerPage,
+                             @RequestParam(name = "name", defaultValue = "") String name) {
         Long classId = Long.valueOf(id);
         int curPage = Integer.parseInt(currentPage);
         int recPerPage = Integer.parseInt(recordPerPage);
@@ -63,7 +64,7 @@ public class ClassRoomController {
         if (classRoomCommand == null)
             throw new NotFoundException("Cannot find classroom, id = " + id);
         Page<StudentCommand> studentCommandPage =
-                classRoomService.getStudentsCommandPagingFromClassRoomId(classId, curPage, recPerPage);
+                classRoomService.getStudentsCommandPagingFromClassRoomIdAndName(classId, curPage, recPerPage, name);
         if (studentCommandPage == null)
             throw new BadRequestException("Current page exceed max page");
         model.addAttribute("class", classRoomCommand);
@@ -73,6 +74,7 @@ public class ClassRoomController {
         model.addAttribute("totalPage", studentCommandPage.getTotalPages());
         model.addAttribute("totalStudent", studentCommandPage.getTotalElements());
         model.addAttribute("recordPerPage", recPerPage);
+        model.addAttribute("name", name);
         return "/class/details";
     }
 }
