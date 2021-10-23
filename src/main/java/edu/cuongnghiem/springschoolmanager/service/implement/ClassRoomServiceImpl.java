@@ -58,4 +58,21 @@ public class ClassRoomServiceImpl implements ClassRoomService {
                );
         return result;
     }
+
+    @Override
+    public List<ClassRoomCommand> getClassRoomCommandByClassTypeNameAndByName(String classTypeName, String name) {
+        List<ClassRoomCommand> result = new ArrayList<>();
+        List<ClassRoom> classRoomList = classRoomRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
+        classRoomList.forEach(classRoom -> {
+            if ((classRoom.getClassType().getName().equals(classTypeName) || classTypeName == null)
+                    && classRoom.getName().contains(name))
+            {
+                ClassRoomCommand command = classRoomConverter.entityToCommand(classRoom);
+                command.setNumberOfTeachers((long) classRoom.getTeachers().size());
+                command.setNumberOfStudents((long) classRoom.getStudents().size());
+                result.add(command);
+            }
+        });
+        return result;
+    }
 }

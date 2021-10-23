@@ -36,12 +36,16 @@ public class ClassRoomController {
 
     @PostMapping("")
     public String getIndexFilter(Model model,
-                                 @RequestParam("filter") String filter) {
+                                 @RequestParam("filter") String filter,
+                                 @RequestParam("name") String name) {
         model.addAttribute("filter", filter);
+        model.addAttribute("name", name);
         if (filter.equals("All"))
-            model.addAttribute("classes", classRoomService.getClassRoomCommand());
+            model.addAttribute("classes",
+                    classRoomService.getClassRoomCommandByClassTypeNameAndByName(null, name));
         else
-            model.addAttribute("classes", classRoomService.getClassRoomCommandByClassTypeName(filter));
+            model.addAttribute("classes",
+                    classRoomService.getClassRoomCommandByClassTypeNameAndByName(filter, name));
         return "/class/index";
     }
 }

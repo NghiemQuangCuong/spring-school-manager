@@ -11,4 +11,5 @@ import java.util.List;
 public interface ClassRoomService {
     List<ClassRoomCommand> getClassRoomCommandByClassTypeName(String name);
     List<ClassRoomCommand> getClassRoomCommand();
+    List<ClassRoomCommand> getClassRoomCommandByClassTypeNameAndByName(String classTypeName, String name);
 }
