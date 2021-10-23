@@ -1,7 +1,9 @@
 package edu.cuongnghiem.springschoolmanager.command;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,6 +12,8 @@ import java.util.Set;
  * Created by cuongnghiem on 21/10/2021
  **/
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ClassRoomCommand {
 
     @Builder
