@@ -37,4 +37,7 @@ public class Student extends Person{
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "student")
     private Set<Mark> marks = new HashSet<>();
+
+    @Lob
+    private byte[] image;
 }

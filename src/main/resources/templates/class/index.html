@@ -29,7 +29,7 @@
     <div class="row mt-5">
         <div th:each="class : ${classes}" class="col-lg-4">
             <div class="card mt-3" style="width: 18rem;">
-                <img src="..." class="card-img-top" alt="Class Picture">
+                <img th:src="@{/image/class/{id}(id=${class.id})}" class="card-img-top" alt="Class Picture">
                 <div class="card-body">
                     <h5 class="card-title" th:text="${class.name}">Class Name</h5>
                     <hr />

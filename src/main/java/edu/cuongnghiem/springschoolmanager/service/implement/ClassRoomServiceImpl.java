@@ -5,15 +5,12 @@ import edu.cuongnghiem.springschoolmanager.converters.ClassRoomConverter;
 import edu.cuongnghiem.springschoolmanager.entity.ClassRoom;
 import edu.cuongnghiem.springschoolmanager.repository.ClassRoomRepository;
 import edu.cuongnghiem.springschoolmanager.service.ClassRoomService;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by cuongnghiem on 21/10/2021
@@ -64,7 +61,7 @@ public class ClassRoomServiceImpl implements ClassRoomService {
         List<ClassRoomCommand> result = new ArrayList<>();
         List<ClassRoom> classRoomList = classRoomRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
         classRoomList.forEach(classRoom -> {
-            if ((classRoom.getClassType().getName().equals(classTypeName) || classTypeName == null)
+            if (classRoom.getName() != null && (classTypeName == null || classTypeName.equals(classRoom.getClassType().getName()))
                     && classRoom.getName().contains(name))
             {
                 ClassRoomCommand command = classRoomConverter.entityToCommand(classRoom);
@@ -74,5 +71,15 @@ public class ClassRoomServiceImpl implements ClassRoomService {
             }
         });
         return result;
+    }
+
+    @Override
+    public ClassRoom getClassRoomById(Long id) {
+        return classRoomRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public ClassRoom saveClassRoom(ClassRoom classRoom) {
+        return classRoomRepository.save(classRoom);
     }
 }

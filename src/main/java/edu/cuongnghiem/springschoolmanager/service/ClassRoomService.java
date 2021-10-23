@@ -1,6 +1,7 @@
 package edu.cuongnghiem.springschoolmanager.service;
 
 import edu.cuongnghiem.springschoolmanager.command.ClassRoomCommand;
+import edu.cuongnghiem.springschoolmanager.entity.ClassRoom;
 
 import java.util.List;
 
@@ -12,4 +13,6 @@ public interface ClassRoomService {
     List<ClassRoomCommand> getClassRoomCommandByClassTypeName(String name);
     List<ClassRoomCommand> getClassRoomCommand();
     List<ClassRoomCommand> getClassRoomCommandByClassTypeNameAndByName(String classTypeName, String name);
+    ClassRoom getClassRoomById(Long id);
+    ClassRoom saveClassRoom(ClassRoom classRoom);
 }

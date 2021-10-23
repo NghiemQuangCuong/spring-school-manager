@@ -45,4 +45,7 @@ public class ClassRoom extends BaseEntity{
             joinColumns = @JoinColumn(name = "class_room_id"),
             inverseJoinColumns = @JoinColumn(name = "teacher_id"))
     private Set<Teacher> teachers = new HashSet<>();
+
+    @Lob
+    private byte[] image;
 }

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="fragments/layout :: layout(~{::body}, 'home')">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="row mt-5">
+    <div class="col">
+        <h1 class="display-2 bg-info p-3">400 Bad Request</h1>
+        <p th:text="${message}">Message</p>
+    </div>
+</div>
+
+</body>
+</html>
