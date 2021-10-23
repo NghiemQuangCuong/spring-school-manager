@@ -31,9 +31,9 @@ public class ClassRoomServiceImpl implements ClassRoomService {
     }
 
     @Override
-    public Set<ClassRoomCommand> getClassRoomCommandByClassTypeName(String name) {
-        Set<ClassRoomCommand> result = new HashSet<>();
-        List<ClassRoom> classRoomList = classRoomRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+    public List<ClassRoomCommand> getClassRoomCommandByClassTypeName(String name) {
+        List<ClassRoomCommand> result = new ArrayList<>();
+        List<ClassRoom> classRoomList = classRoomRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
         classRoomList.forEach(classRoom -> {
             if (classRoom.getClassType().getName().equals(name)) {
                 ClassRoomCommand command = classRoomConverter.entityToCommand(classRoom);
@@ -46,9 +46,9 @@ public class ClassRoomServiceImpl implements ClassRoomService {
     }
 
     @Override
-    public Set<ClassRoomCommand> getClassRoomCommand() {
-        Set<ClassRoomCommand> result = new HashSet<>();
-        List<ClassRoom> classRoomList = classRoomRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+    public List<ClassRoomCommand> getClassRoomCommand() {
+        List<ClassRoomCommand> result = new ArrayList<>();
+        List<ClassRoom> classRoomList = classRoomRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
         classRoomList.forEach(classRoom -> {
                     ClassRoomCommand command = classRoomConverter.entityToCommand(classRoom);
                     command.setNumberOfTeachers((long) classRoom.getTeachers().size());

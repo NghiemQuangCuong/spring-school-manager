@@ -4,9 +4,7 @@ import edu.cuongnghiem.springschoolmanager.service.ClassRoomService;
 import edu.cuongnghiem.springschoolmanager.service.ClassTypeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 
 /**
@@ -14,12 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
  **/
 @Controller
 @RequestMapping("/class")
-public class ClassController {
+public class ClassRoomController {
 
     private final ClassTypeService classTypeService;
     private final ClassRoomService classRoomService;
 
-    public ClassController(ClassTypeService classTypeService, ClassRoomService classRoomService) {
+    public ClassRoomController(ClassTypeService classTypeService, ClassRoomService classRoomService) {
         this.classTypeService = classTypeService;
         this.classRoomService = classRoomService;
     }
@@ -32,11 +30,18 @@ public class ClassController {
     @GetMapping("")
     public String getIndex(Model model) {
         model.addAttribute("filter", "All");
-        // class name
-        // class type
-        // numbers of teacher
-        // numbers of student
         model.addAttribute("classes", classRoomService.getClassRoomCommand());
+        return "/class/index";
+    }
+
+    @PostMapping("")
+    public String getIndexFilter(Model model,
+                                 @RequestParam("filter") String filter) {
+        model.addAttribute("filter", filter);
+        if (filter.equals("All"))
+            model.addAttribute("classes", classRoomService.getClassRoomCommand());
+        else
+            model.addAttribute("classes", classRoomService.getClassRoomCommandByClassTypeName(filter));
         return "/class/index";
     }
 }
