@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
-import java.util.Random;
 
 /**
  * Created by cuongnghiem on 23/10/2021
@@ -15,11 +14,15 @@ import java.util.Random;
 @Service
 public class ImageServiceImpl implements ImageService {
 
+    private static int randomNumber = 0;
+
     @Override
     public byte[] getRandomClassImageCover() throws IOException {
         String absolutePath = FileSystems.getDefault().getPath("")
                 .normalize().toAbsolutePath().toString();
-        String path = "/src/main/resources/static/img/class/class_image_cover_" + new Random().nextInt(10) + ".png";
+        if (randomNumber > 9)
+            randomNumber = 0;
+        String path = "/src/main/resources/static/img/class/class_image_cover_" + randomNumber++ + ".png";
         File image = new File(absolutePath + path);
         return Files.readAllBytes(image.toPath());
     }
