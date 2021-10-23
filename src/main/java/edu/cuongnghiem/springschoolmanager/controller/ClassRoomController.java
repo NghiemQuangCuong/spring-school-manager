@@ -55,7 +55,7 @@ public class ClassRoomController {
     public String getDetails(Model model,
                              @PathVariable String id,
                              @RequestParam(name = "currentPage", defaultValue = "1") String currentPage,
-                             @RequestParam(name = "recordPerPage", defaultValue = "10") String recordPerPage,
+                             @RequestParam(name = "recordPerPage", defaultValue = "5") String recordPerPage,
                              @RequestParam(name = "name", defaultValue = "") String name) {
         Long classId = Long.valueOf(id);
         int curPage = Integer.parseInt(currentPage);

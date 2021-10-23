@@ -13,10 +13,10 @@
         </div>
         <div class="row mt-3">
             <div class="col">
-
                 <div class="card">
                     <h1 class="display-3 card-header p-3" th:inline="text">[[${class.name}]] ([[${class.classTypeCommand.name}]])</h1>
                     <div class="card-body">
+                        <h1 class="display-5 p-3 bg-info bg-opacity-25 rounded text-center fw-bold user-select-none" th:text="#{students}"></h1>
                         <h2 id="studentNav" class="card-title user-select-none" th:inline="text">[[#{listOfStudents}]] (Found: [[${totalStudent}]])</h2>
                         <form>
                             <div class="row">
@@ -39,8 +39,8 @@
                                 </div>
                             </div>
                         </form>
-                        <table class="table table-hover user-select-none">
-                            <thead>
+                        <table class="table table-hover user-select-none mt-3">
+                            <thead class="bg-warning bg-opacity-25">
                             <tr>
                                 <th scope="col" th:text="#{name}">Name</th>
                                 <th scope="col" th:text="#{phone1}">Phone 1</th>
@@ -71,6 +71,8 @@
                                 <li class="page-item"><a id="p9" class="page-link" href="#" th:text="#{lastPage}">Last</a></li>
                             </ul>
                         </nav>
+                        <hr />
+                        <h1 class="display-5 p-3 bg-danger bg-opacity-25 rounded text-center fw-bold user-select-none" th:text="#{teachers}"></h1>
                     </div>
                 </div>
             </div>
