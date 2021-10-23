@@ -5,10 +5,11 @@
     <title>Title</title>
 </head>
 <body>
+<div class="container mt-sm-2 mt-lg-0 mb-2 ms-lg-5 me-lg-5">
     <div class="row mt-5">
         <div class="col">
-            <h1 th:text="#{welcomeText}">Welcome To Cuong's School</h1>
-            <ul>
+            <h1 class="user-select-none" th:text="#{welcomeText}">Welcome To Cuong's School</h1>
+            <ul class="user-select-none">
                 <li><h3 class="mt-3 fw-normal" th:text="#{self1}">My name's Cuong, I am Vietnamese, i live in Ho Chi Minh City.</h3></li>
                 <li><h3 class="mt-3 fw-normal" th:text="#{self2}">I am a backend developer, I love everything about backend system, especially when working with security and database.</h3></li>
                 <li><h3 class="mt-3 fw-normal" th:text="#{self3}">I created this website from crash. Using Java & Spring Framework, with a small knowledge of HTML/CSS and Bootstrap too.</h3></li>
@@ -18,6 +19,6 @@
             </ul>
         </div>
     </div>
-
+</div>
 </body>
 </html>

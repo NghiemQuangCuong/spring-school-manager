@@ -1,5 +1,6 @@
 package edu.cuongnghiem.springschoolmanager.controller.exceptionAndError;
 
+import edu.cuongnghiem.springschoolmanager.exception.BadRequestException;
 import edu.cuongnghiem.springschoolmanager.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -24,7 +25,7 @@ public class ExceptionHandlerController {
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(NumberFormatException.class)
+    @ExceptionHandler({NumberFormatException.class, BadRequestException.class})
     public ModelAndView badRequestException(Exception ex) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("message", ex.getMessage());

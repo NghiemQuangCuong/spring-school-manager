@@ -17,7 +17,7 @@ public class ImageServiceImpl implements ImageService {
     private static int randomNumber = 0;
 
     @Override
-    public byte[] getRandomClassImageCover() throws IOException {
+    public synchronized byte[] getRandomClassImageCover() throws IOException {
         String absolutePath = FileSystems.getDefault().getPath("")
                 .normalize().toAbsolutePath().toString();
         if (randomNumber > 9)

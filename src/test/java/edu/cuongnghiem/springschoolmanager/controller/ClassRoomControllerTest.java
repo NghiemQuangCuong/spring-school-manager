@@ -65,4 +65,12 @@ class ClassRoomControllerTest {
                 .andExpect(model().attributeExists("classes"))
                 .andExpect(view().name("/class/index"));
     }
+
+    @Test
+    void getClassDetails() throws Exception {
+        mockMvc.perform(get("/class/1"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("/class/details"))
+                .andExpect(model().attributeExists("class"));
+    }
 }

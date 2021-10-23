@@ -5,35 +5,37 @@
     <title>Title</title>
 </head>
 <body>
-
-<form th:method="POST">
-    <div class="row mt-5">
-        <div class="col-5 col-sm-3">
-            <input name="name" class="form-control" type="text" th:value="${name}" th:placeholder="#{findPlaceHolder}" />
+<div class="container mt-sm-2 mt-lg-0 mb-2 ms-lg-5 me-lg-5">
+    <form th:method="POST">
+        <div class="row mt-5">
+            <div class="col-5 col-sm-3">
+                <input name="name" class="form-control" type="text" th:value="${name}" th:placeholder="#{findPlaceHolder}" />
+            </div>
+            <div class="col-5 col-sm-3">
+                <select class="form-select" name="filter" >
+                    <option th:value="'All'" th:text="'All'"></option>
+                    <option th:each="classType : ${classTypes}"
+                            th:value="${classType}"
+                            th:text="${classType}"
+                            th:selected="${classType.equals(filter)}"></option>
+                </select>
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-success" th:text="#{find}">Find</button>
+            </div>
         </div>
-        <div class="col-5 col-sm-3">
-            <select class="form-select" name="filter" >
-                <option th:value="'All'" th:text="'All'"></option>
-                <option th:each="classType : ${classTypes}"
-                        th:value="${classType}"
-                        th:text="${classType}"
-                        th:selected="${classType.equals(filter)}"></option>
-            </select>
-        </div>
-        <div class="col">
-            <button type="submit" class="btn btn-success" th:text="#{find}">Find</button>
-        </div>
-    </div>
-</form>
+    </form>
 
     <div class="row mt-5">
         <div th:each="class : ${classes}" class="col-lg-4">
-            <div class="card mt-3" style="width: 18rem;">
+            <div class="card mt-5" style="width: 18rem;">
                 <img th:src="@{/image/class/{id}(id=${class.id})}" class="card-img-top" alt="Class Picture">
                 <div class="card-body">
-                    <h5 class="card-title" th:text="${class.name}">Class Name</h5>
+                    <h5 class="card-title">
+                        <a class="link" th:text="${class.name}" th:href="@{/class/{classId}(classId=${class.id})}">Class Name</a>
+                    </h5>
                     <hr />
-                    <p class="card-text fw-bold" th:inline="text">
+                    <p class="card-text fw-bold user-select-none" th:inline="text">
                         [[#{specialized}]]: <span class="fw-normal" th:text="${class.classTypeCommand.name}"></span>
                         <br />
                         [[#{students}]]: <span class="fw-normal" th:text="${class.numberOfStudents}"></span>
@@ -45,8 +47,6 @@
             </div>
         </div>
     </div>
-
-
-
+</div>
 </body>
 </html>

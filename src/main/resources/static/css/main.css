@@ -12,3 +12,24 @@
     column-gap: 20px;
     row-gap: 20px;
 }
+
+.link {
+    text-decoration: none;
+    color: black;
+}
+
+.link:hover {
+    text-decoration: underline;
+    color: black;
+}
+
+.mouse-default {
+    cursor: default;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}

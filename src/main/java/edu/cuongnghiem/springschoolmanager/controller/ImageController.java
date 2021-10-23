@@ -37,23 +37,16 @@ public class ImageController {
         if (classRoom == null)
             throw new NotFoundException("ClassRoom not found, id = " + id);
         byte[] image = classRoom.getImage();
-        if (image != null) {
-            // if class room already has an image, we get that image
-            response.setContentType("image/*");
-            InputStream is = new ByteArrayInputStream(image);
-            IOUtils.copy(is, response.getOutputStream());
-            is.close();
-            response.getOutputStream().close();
-        } else {
-            // if not, random image will be set to the classroom.
-            response.setContentType("image/*");
+        if (image == null) {
+            // we set classroom image to random if it is null
             image = imageService.getRandomClassImageCover();
-            InputStream is = new ByteArrayInputStream(image);
-            IOUtils.copy(is, response.getOutputStream());
-            is.close();
-            response.getOutputStream().close();
             classRoom.setImage(image);
             classRoomService.saveClassRoom(classRoom);
         }
+        response.setContentType("image/*");
+        InputStream is = new ByteArrayInputStream(image);
+        IOUtils.copy(is, response.getOutputStream());
+        is.close();
+        response.getOutputStream().close();
     }
 }
