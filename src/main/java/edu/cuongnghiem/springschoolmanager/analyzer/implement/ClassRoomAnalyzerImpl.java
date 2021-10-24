@@ -41,7 +41,7 @@ public class ClassRoomAnalyzerImpl implements ClassRoomAnalyzer {
      *
      * **/
     @Override
-    public BarChart students(Long firstClassRoomId, Long secondClassRoomId, StringBuilder status) {
+    public synchronized BarChart students(Long firstClassRoomId, Long secondClassRoomId, StringBuilder status) {
         ClassRoom firstCR = classRoomService.getClassRoomById(firstClassRoomId);
         ClassRoom secondCR = null;
         if (secondClassRoomId != null)
