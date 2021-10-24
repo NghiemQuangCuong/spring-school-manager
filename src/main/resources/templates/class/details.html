@@ -73,6 +73,37 @@
                         </nav>
                         <hr />
                         <h1 class="display-5 p-3 bg-danger bg-opacity-25 rounded text-center fw-bold user-select-none" th:text="#{teachers}"></h1>
+                        <div class="row">
+                            <div th:each="teacher : ${teachers}" class="col-lg-4 col-md-6 col-8">
+                                <div class="card mb-3 mt-3 border-teacher" style="max-width: 540px;">
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            <img src="..." class="img-fluid rounded-start" alt="Teacher's picture">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <h5 class="card-title" th:text="${teacher.firstName} + ' ' + ${teacher.lastName}">Card title</h5>
+                                                <p class="card-text">
+                                                    <span th:if="${teacher.contactCommand.phone1 != null && teacher.contactCommand.phone1 != ''}" th:inline="text">
+                                                        [[#{phone1}]]: [[${teacher.contactCommand.phone1}]]
+                                                    </span>
+                                                    <br />
+                                                    <span th:if="${teacher.contactCommand.phone2 != null && teacher.contactCommand.phone2 != ''}" th:inline="text">
+                                                        [[#{phone2}]]: [[${teacher.contactCommand.phone2}]]
+                                                    </span>
+                                                    <br />
+                                                    <span th:if="${teacher.contactCommand.address != null && teacher.contactCommand.address != ''}" th:inline="text">
+                                                        [[#{city}]]: [[${teacher.contactCommand.city}]]
+                                                    </span>
+                                                    <br />
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h1 th:if="${teachers.size() == 0}" class="fw-normal user-select-none" th:text="#{noTeachers}">There are no teachers</h1>
                     </div>
                 </div>
             </div>

@@ -1,22 +1,19 @@
 package edu.cuongnghiem.springschoolmanager.controller.exceptionAndError;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.boot.web.servlet.error.ErrorController;
-
-import javax.servlet.RequestDispatcher;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by cuongnghiem on 23/10/2021
  **/
 @Controller
 public class CustomErrorController {
-//
+
 //    @RequestMapping("/error")
-//    public String generalError(HttpServletRequest request) {
+//    public String generalError(HttpServletRequest request, Model model) {
 //        Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+//        Exception exception = (Exception) request.getAttribute(RequestDispatcher.ERROR_EXCEPTION);
+//        model.addAttribute("message", exception.getMessage());
+//        model.addAttribute("stackTrace", exception.getStackTrace());
 //        if (status != null) {
 //            Integer statusCode = Integer.parseInt(status.toString());
 //            if (statusCode == HttpStatus.NOT_FOUND.value())

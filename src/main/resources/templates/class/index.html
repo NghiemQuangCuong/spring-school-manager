@@ -27,9 +27,11 @@
     </form>
 
     <div class="row mt-5">
-        <div th:each="class : ${classes}" class="col-lg-4">
+        <div th:each="class : ${classes}" class="col-lg-4 col-md-6 col-8">
             <div class="card mt-5" style="width: 18rem;">
-                <img th:src="@{/image/class/{id}(id=${class.id})}" class="card-img-top" alt="Class Picture">
+                <a th:href="@{/class/{classId}(classId=${class.id})}">
+                    <img th:src="@{/image/class/{id}(id=${class.id})}" class="card-img-top" alt="Class Picture">
+                </a>
                 <div class="card-body">
                     <h5 class="card-title">
                         <a class="link" th:text="${class.name}" th:href="@{/class/{classId}(classId=${class.id})}">Class Name</a>

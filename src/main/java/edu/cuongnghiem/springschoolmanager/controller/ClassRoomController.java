@@ -57,6 +57,7 @@ public class ClassRoomController {
                              @RequestParam(name = "currentPage", defaultValue = "1") String currentPage,
                              @RequestParam(name = "recordPerPage", defaultValue = "5") String recordPerPage,
                              @RequestParam(name = "name", defaultValue = "") String name) {
+        // Prepare for students
         Long classId = Long.valueOf(id);
         int curPage = Integer.parseInt(currentPage);
         int recPerPage = Integer.parseInt(recordPerPage);
@@ -75,6 +76,10 @@ public class ClassRoomController {
         model.addAttribute("totalStudent", studentCommandPage.getTotalElements());
         model.addAttribute("recordPerPage", recPerPage);
         model.addAttribute("name", name);
+
+        // Prepare for teachers
+        model.addAttribute("teachers", classRoomCommand.getTeacherCommands());
+
         return "/class/details";
     }
 }

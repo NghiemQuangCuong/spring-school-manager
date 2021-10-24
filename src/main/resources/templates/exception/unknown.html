@@ -9,6 +9,7 @@
     <div class="col">
         <h1 class="display-2 bg-info p-3">Unknown error, please try again</h1>
         <p th:text="${message}">Message</p>
+        <div th:each="trace : ${stackTrace}" th:text="${trace.toString()}"></div>
     </div>
 </div>
 
