@@ -1,9 +1,11 @@
 package edu.cuongnghiem.springschoolmanager.controller;
 
 import edu.cuongnghiem.springschoolmanager.entity.ClassRoom;
+import edu.cuongnghiem.springschoolmanager.entity.Teacher;
 import edu.cuongnghiem.springschoolmanager.exception.NotFoundException;
 import edu.cuongnghiem.springschoolmanager.service.ClassRoomService;
 import edu.cuongnghiem.springschoolmanager.service.ImageService;
+import edu.cuongnghiem.springschoolmanager.service.TeacherService;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,10 +26,12 @@ public class ImageController {
 
     private final ClassRoomService classRoomService;
     private final ImageService imageService;
+    private final TeacherService teacherService;
 
-    public ImageController(ClassRoomService classRoomService, ImageService imageService) {
+    public ImageController(ClassRoomService classRoomService, ImageService imageService, TeacherService teacherService) {
         this.classRoomService = classRoomService;
         this.imageService = imageService;
+        this.teacherService = teacherService;
     }
 
     @GetMapping("/class/{id}")
@@ -42,6 +46,26 @@ public class ImageController {
             image = imageService.getRandomClassImageCover();
             classRoom.setImage(image);
             classRoomService.saveClassRoom(classRoom);
+        }
+        response.setContentType("image/*");
+        InputStream is = new ByteArrayInputStream(image);
+        IOUtils.copy(is, response.getOutputStream());
+        is.close();
+        response.getOutputStream().close();
+    }
+
+    @GetMapping("/teacher/{id}")
+    public void getTeacherImage(HttpServletResponse response,
+                                @PathVariable String id) throws IOException {
+        Long teacherId = Long.valueOf(id);
+        Teacher teacher = teacherService.getTeacherById(teacherId);
+        if (teacher == null)
+            throw new NotFoundException("Cannot find teacher, id = " + teacherId);
+        byte[] image = teacher.getImage();
+        if (image == null) {
+            image = imageService.getRandomTeacherImage();
+            teacher.setImage(image);
+            teacherService.save(teacher);
         }
         response.setContentType("image/*");
         InputStream is = new ByteArrayInputStream(image);

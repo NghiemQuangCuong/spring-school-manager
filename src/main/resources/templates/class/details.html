@@ -78,12 +78,16 @@
                                 <div class="card mb-3 mt-3 border-teacher" style="max-width: 540px;">
                                     <div class="row g-0">
                                         <div class="col-md-4">
-                                            <img src="..." class="img-fluid rounded-start" alt="Teacher's picture">
+                                            <a th:href="@{/teacher/{id}(id=${teacher.id})}">
+                                                <img th:src="@{/image/teacher/{id}(id=${teacher.id})}" class="img-fluid rounded-start" alt="Teacher's picture">
+                                            </a>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="card-body">
-                                                <h5 class="card-title" th:text="${teacher.firstName} + ' ' + ${teacher.lastName}">Card title</h5>
-                                                <p class="card-text">
+                                                <a class="link" th:href="@{/teacher/{id}(id=${teacher.id})}">
+                                                    <h5 class="card-title" th:text="${teacher.firstName} + ' ' + ${teacher.lastName}">Card title</h5>
+                                                </a>
+                                                <p class="card-text user-select-none">
                                                     <span th:if="${teacher.contactCommand.phone1 != null && teacher.contactCommand.phone1 != ''}" th:inline="text">
                                                         [[#{phone1}]]: [[${teacher.contactCommand.phone1}]]
                                                     </span>

@@ -16,6 +16,7 @@
 .link {
     text-decoration: none;
     color: black;
+    cursor: pointer;
 }
 
 .link:hover {
