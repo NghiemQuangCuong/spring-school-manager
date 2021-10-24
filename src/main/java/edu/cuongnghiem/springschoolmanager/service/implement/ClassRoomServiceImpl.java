@@ -5,6 +5,7 @@ import edu.cuongnghiem.springschoolmanager.command.StudentCommand;
 import edu.cuongnghiem.springschoolmanager.converters.ClassRoomConverter;
 import edu.cuongnghiem.springschoolmanager.converters.StudentConverter;
 import edu.cuongnghiem.springschoolmanager.entity.ClassRoom;
+import edu.cuongnghiem.springschoolmanager.exception.NotFoundException;
 import edu.cuongnghiem.springschoolmanager.repository.ClassRoomRepository;
 import edu.cuongnghiem.springschoolmanager.service.ClassRoomService;
 import org.springframework.data.domain.Page;
@@ -135,6 +136,23 @@ public class ClassRoomServiceImpl implements ClassRoomService {
         Page<StudentCommand> studentPage =
                 new PageImpl<>(studentCommands.subList(min, max), PageRequest.of(page-1, recordsPerPage), studentCommands.size());
         return studentPage;
+    }
+
+    @Override
+    public long numberOfStudentsOfClassRoomId(Long id) {
+        ClassRoom classRoom = classRoomRepository.findById(id).orElse(null);
+        if (classRoom == null)
+            throw new NotFoundException("Class Room not found, id = " + id);
+        return (long) classRoom.getStudents().size();
+    }
+
+    @Override
+    public List<ClassRoomCommand> getAllClassRoom() {
+        List<ClassRoomCommand> result = new ArrayList<>();
+        classRoomRepository.findAll().forEach(classRoom -> {
+            result.add(classRoomConverter.entityToCommand(classRoom));
+        });
+        return result;
     }
 
     private int getTotalPage(int size, int rpp) {

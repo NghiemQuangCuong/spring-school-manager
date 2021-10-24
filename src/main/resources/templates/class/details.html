@@ -108,13 +108,67 @@
                             </div>
                         </div>
                         <h1 th:if="${teachers.size() == 0}" class="fw-normal user-select-none" th:text="#{noTeachers}">There are no teachers</h1>
+                        <hr />
+                        <h1 class="display-5 p-3 bg-primary bg-opacity-25 rounded text-center fw-bold user-select-none" th:text="#{analyze}"></h1>
+                        <!-- Analyze 1 -->
+                        <h2 class="card-title user-select-none" th:text="#{classRoomAnalyze1}">Analyze 1</h2>
+                        <form>
+                            <div class="row">
+                                <div class="col-lg-4 col-6">
+                                    <select name="analyze1" class="form-select">
+                                        <option value="all" th:text="#{all}"></option>
+                                        <option th:each="classRoom : ${classRooms}"
+                                                th:if="${!classRoom.name.equals(class.name)}"
+                                                th:selected="${analyze1.equals(classRoom.id.toString())}"
+                                                th:value="${classRoom.id}"
+                                                th:text="${classRoom.name}">Class Name</option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <button class="btn btn-success" th:text="#{analyze}" type="submit">Submit Button</button>
+                                </div>
+                            </div>
+                        </form>
+                        <canvas id="chart1" style="width:100%;max-width:700px"></canvas>
+                        <input id="xValue1" type="hidden" name="xValue1" th:value="${xValue1}">
+                        <input id="xValue2" type="hidden" name="xValue2" th:value="${xValue2}">
+                        <input id="yValue1" type="hidden" name="yValue1" th:value="${yValue1}">
+                        <input id="yValue2" type="hidden" name="xValue1" th:value="${yValue2}">
+                        <input id="updateStatus1" type="hidden" name="updateStatus1" th:value="${updateStatus1}">
+                        <!-- End Analyze 1 -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <div class="mt-5"></div>
+
     <script>
+        function generateAnalyze1(){
+            var xValues = [document.getElementById("xValue1").value, document.getElementById("xValue2").value];
+            var yValues = [document.getElementById("yValue1").value, document.getElementById("yValue2").value];
+            var barColors = ["green","orange"];
+            new Chart("chart1", {
+                type: "bar",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        backgroundColor: barColors,
+                        data: yValues
+                    }]
+                },
+                options: {
+                    legend: {display: false},
+                    title: {
+                        display: true,
+                        text: document.getElementById("updateStatus1").value,
+                    }
+                }
+            });
+        }
+        generateAnalyze1();
+
         let classId = document.getElementById("classId").value;
         let page = document.getElementById("page").value;
         let name = document.getElementById("name").value;
@@ -166,6 +220,7 @@
             p9.onclick = function () {
                 location.href = `/class/${classId}?currentPage=${totalPage}&name=${name}&recordPerPage=${recPP}#studentNav` ;
             }
+
     </script>
 </body>
 </html>

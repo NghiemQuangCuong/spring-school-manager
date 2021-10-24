@@ -1,5 +1,7 @@
 package edu.cuongnghiem.springschoolmanager.controller;
 
+import edu.cuongnghiem.springschoolmanager.analyzer.ClassRoomAnalyzer;
+import edu.cuongnghiem.springschoolmanager.analyzer.charts.BarChart;
 import edu.cuongnghiem.springschoolmanager.command.ClassRoomCommand;
 import edu.cuongnghiem.springschoolmanager.command.StudentCommand;
 import edu.cuongnghiem.springschoolmanager.service.ClassRoomService;
@@ -15,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -33,6 +36,8 @@ class ClassRoomControllerTest {
     ClassTypeService classTypeService;
     @Mock
     ClassRoomService classRoomService;
+    @Mock
+    ClassRoomAnalyzer classRoomAnalyzer;
 
     MockMvc mockMvc;
 
@@ -74,6 +79,10 @@ class ClassRoomControllerTest {
         when(classRoomService.getClassRoomCommandById(anyLong())).thenReturn(new ClassRoomCommand());
         when(classRoomService.getStudentsCommandPagingFromClassRoomIdAndName(anyLong(), anyInt(), anyInt(), anyString()))
                 .thenReturn(new PageImpl<StudentCommand>(new ArrayList<>()));
+        when(classRoomService.getAllClassRoom()).thenReturn(new ArrayList<>());
+        BarChart chart = new BarChart();
+        chart.getXValues().add("1"); chart.getXValues().add("2"); chart.getYValues().add(BigDecimal.valueOf(1)); chart.getYValues().add(BigDecimal.valueOf(2));
+        when(classRoomAnalyzer.students(anyLong(), any(), any())).thenReturn(chart);
         mockMvc.perform(get("/class/1"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("/class/details"))

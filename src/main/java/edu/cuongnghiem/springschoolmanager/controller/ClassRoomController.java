@@ -1,11 +1,14 @@
 package edu.cuongnghiem.springschoolmanager.controller;
 
+import edu.cuongnghiem.springschoolmanager.analyzer.ClassRoomAnalyzer;
+import edu.cuongnghiem.springschoolmanager.analyzer.charts.BarChart;
 import edu.cuongnghiem.springschoolmanager.command.ClassRoomCommand;
 import edu.cuongnghiem.springschoolmanager.command.StudentCommand;
 import edu.cuongnghiem.springschoolmanager.exception.BadRequestException;
 import edu.cuongnghiem.springschoolmanager.exception.NotFoundException;
 import edu.cuongnghiem.springschoolmanager.service.ClassRoomService;
 import edu.cuongnghiem.springschoolmanager.service.ClassTypeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,16 +18,19 @@ import org.springframework.web.bind.annotation.*;
 /**
  * Created by cuongnghiem on 23/10/2021
  **/
+@Slf4j
 @Controller
 @RequestMapping("/class")
 public class ClassRoomController {
 
     private final ClassTypeService classTypeService;
     private final ClassRoomService classRoomService;
+    private final ClassRoomAnalyzer classRoomAnalyzer;
 
-    public ClassRoomController(ClassTypeService classTypeService, ClassRoomService classRoomService) {
+    public ClassRoomController(ClassTypeService classTypeService, ClassRoomService classRoomService, ClassRoomAnalyzer classRoomAnalyzer) {
         this.classTypeService = classTypeService;
         this.classRoomService = classRoomService;
+        this.classRoomAnalyzer = classRoomAnalyzer;
     }
 
     @GetMapping("")
@@ -56,7 +62,9 @@ public class ClassRoomController {
                              @PathVariable String id,
                              @RequestParam(name = "currentPage", defaultValue = "1") String currentPage,
                              @RequestParam(name = "recordPerPage", defaultValue = "5") String recordPerPage,
-                             @RequestParam(name = "name", defaultValue = "") String name) {
+                             @RequestParam(name = "name", defaultValue = "") String name,
+                             @RequestParam(name = "analyze1", defaultValue = "all") String analyze1,
+                             @RequestParam(name = "analyzeSection", defaultValue = "") String analyzeSection) {
         // Prepare for students
         Long classId = Long.valueOf(id);
         int curPage = Integer.parseInt(currentPage);
@@ -79,6 +87,21 @@ public class ClassRoomController {
 
         // Prepare for teachers
         model.addAttribute("teachers", classRoomCommand.getTeacherCommands());
+
+        // prepare for analyze
+        model.addAttribute("classRooms", classRoomService.getAllClassRoom());
+        model.addAttribute("analyze1", analyze1);
+        StringBuilder updateStatus1 = new StringBuilder();
+        BarChart barChart1 = new BarChart();
+        if (analyze1.equals("all"))
+            barChart1 = classRoomAnalyzer.students(classId, null, updateStatus1);
+        else
+            barChart1 = classRoomAnalyzer.students(classId, Long.valueOf(analyze1), updateStatus1);
+        model.addAttribute("updateStatus1", updateStatus1.toString());
+        model.addAttribute("xValue1", barChart1.getXValues().get(0));
+        model.addAttribute("xValue2", barChart1.getXValues().get(1));
+        model.addAttribute("yValue1", barChart1.getYValues().get(0));
+        model.addAttribute("yValue2", barChart1.getYValues().get(1));
 
         return "/class/details";
     }

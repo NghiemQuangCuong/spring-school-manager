@@ -1,6 +1,7 @@
 package edu.cuongnghiem.springschoolmanager.controller.exceptionAndError;
 
 import edu.cuongnghiem.springschoolmanager.exception.BadRequestException;
+import edu.cuongnghiem.springschoolmanager.exception.CacheMissingException;
 import edu.cuongnghiem.springschoolmanager.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -34,7 +35,7 @@ public class ExceptionHandlerController {
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(IOException.class)
+    @ExceptionHandler({IOException.class, CacheMissingException.class})
     public ModelAndView serverException(Exception ex) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("message", ex.getMessage());

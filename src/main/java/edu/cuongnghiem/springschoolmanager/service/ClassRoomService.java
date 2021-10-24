@@ -20,4 +20,6 @@ public interface ClassRoomService {
     ClassRoom saveClassRoom(ClassRoom classRoom);
     List<StudentCommand> getStudentsCommandFromClassRoomId(Long id);
     Page<StudentCommand> getStudentsCommandPagingFromClassRoomIdAndName(Long id, int page, int recordsPerPage, String name);
+    long numberOfStudentsOfClassRoomId(Long id);
+    List<ClassRoomCommand> getAllClassRoom();
 }
