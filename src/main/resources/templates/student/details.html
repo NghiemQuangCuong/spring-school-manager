@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="fragments/layout :: layout(~{::body}, 'student')">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="card mb-3 center mt-5" style="max-width: 540px;">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img th:src="@{/image/student/{id}(id=${student.id})}" class="img-fluid rounded-start" alt="Student Image">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${student.firstName + ' ' + student.getLastName()}">Student Name</h5>
+                    <p class="card-text fw-bold" th:inline="text">
+                        [[#{address}]]: <span class="fw-normal">[[${student.contactCommand.address}]]</span>
+                        <br />
+                        [[#{city}]]: <span class="fw-normal">[[${student.contactCommand.city}]]</span>
+                        <br />
+                        [[#{phone1}]]: <span class="fw-normal">[[${student.contactCommand.phone1}]]</span>
+                        <br />
+                        [[#{phone2}]]: <span class="fw-normal">[[${student.contactCommand.phone2}]]</span>
+                        <br />
+                        [[#{classRoom}]]: <span class="fw-normal"><a th:href="@{/class/{id}(id=${student.classRoomCommand.id})}">[[${student.classRoomCommand.name}]]</a></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container center">
+        <div class="card">
+            <h1 class="card-header text-center bg-info bg-opacity-25 p-3" th:text="#{mark}">Mark</h1>
+            <div class="card-body user-select-none">
+                <h2 class="card-text" th:text="#{semester1}">Semester 1</h2>
+                <table class="table table-bordered table-hover mt-4">
+                    <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col" th:each="examType : ${examTypesSemester1}"
+                                        th:text="${examType.getJustName()}">ExamTypeSemester1</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="subject : ${subjectNames}">
+                        <th scope="row" th:text="${subject}">Subject</th>
+                        <td th:each="examType : ${examTypesSemester1}"
+                            th:text="${markMap.get(subject).get(examType)?.score}">Mark</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <hr />
+                <h2 class="card-text" th:text="#{semester2}">Semester 2</h2>
+                <table class="table table-bordered table-hove mt-4r">
+                    <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col" th:each="examType : ${examTypesSemester2}"
+                            th:text="${examType.getJustName()}">ExamTypeSemester2</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="subject : ${subjectNames}">
+                        <th scope="row" th:text="${subject}">Subject</th>
+                        <td th:each="examType : ${examTypesSemester2}"
+                            th:text="${markMap.get(subject).get(examType)?.score}">Mark</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card mt-5">
+            <h1 class="card-header text-center bg-primary bg-opacity-25 p-3" th:text="#{analyze}">Analyze</h1>
+            <div class="card-body user-select-none">
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

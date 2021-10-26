@@ -27,8 +27,6 @@
             <th scope="col" th:text="#{lastName}">Last Name</th>
             <th scope="col" th:text="#{phone1}">Phone 1</th>
             <th scope="col" th:text="#{phone2}">Phone 2</th>
-            <th scope="col" th:text="#{address}">Address</th>
-            <th scope="col" th:text="#{city}">City</th>
             <th scope="col" th:text="#{details}">Details</th>
         </tr>
         </thead>
@@ -38,8 +36,6 @@
             <td th:text="${student.lastName}">lastName</td>
             <td th:text="${student.contactCommand.phone1}">phone1</td>
             <td th:text="${student.contactCommand.phone2}">phone2</td>
-            <td th:text="${student.contactCommand.address}">address</td>
-            <td th:text="${student.contactCommand.city}">City</td>
             <td><a th:href="@{/student/{id}(id=${student.id})}" th:text="#{details}"></a></td>
         </tr>
         </tbody>

@@ -9,4 +9,5 @@ import java.io.IOException;
 public interface ImageService {
     byte[] getRandomClassImageCover() throws IOException;
     byte[] getRandomTeacherImage() throws IOException;
+    byte[] getRandomStudentImage() throws IOException;
 }

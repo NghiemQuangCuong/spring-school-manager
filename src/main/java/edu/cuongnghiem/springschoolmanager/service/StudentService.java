@@ -1,9 +1,12 @@
 package edu.cuongnghiem.springschoolmanager.service;
 
+import edu.cuongnghiem.springschoolmanager.command.MarkCommand;
 import edu.cuongnghiem.springschoolmanager.command.StudentCommand;
+import edu.cuongnghiem.springschoolmanager.entity.ExamType;
 import edu.cuongnghiem.springschoolmanager.entity.Student;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -15,4 +18,8 @@ public interface StudentService {
     List<StudentCommand> findStudentCommandByName(String name);
     List<StudentCommand> findStudentCommandByPhone(String phone);
     List<StudentCommand> findStudentCommandByNameAndPhone(String name, String phone);
+    StudentCommand findStudentCommandById(Long id);
+    Student findStudentById(Long id);
+    Student save(Student student);
+    Map<String, Map<ExamType, MarkCommand>> getMarkMapSubjectKey(Long id);
 }

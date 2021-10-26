@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
+import java.util.Random;
 
 /**
  * Created by cuongnghiem on 23/10/2021
@@ -16,6 +17,7 @@ public class ImageServiceImpl implements ImageService {
 
     private static int randomNumberForClass = 0;
     private static int randomNumberForTeacher = 1;
+    private static int randomNumberForStudent = 1;
 
     @Override
     public synchronized byte[] getRandomClassImageCover() throws IOException {
@@ -34,6 +36,15 @@ public class ImageServiceImpl implements ImageService {
         if (randomNumberForTeacher > 295)
             randomNumberForTeacher = 1;
         String path = "/src/main/resources/static/img/teacher/img_teacher_" + numToString(randomNumberForTeacher++) + ".bmp";
+        File image = new File(absolutePath + path);
+        return Files.readAllBytes(image.toPath());
+    }
+
+    @Override
+    public synchronized byte[] getRandomStudentImage() throws IOException {
+        String absolutePath = FileSystems.getDefault().getPath("").normalize().toAbsolutePath().toString();
+        randomNumberForStudent = new Random().nextInt(541) + 1;
+        String path = "/src/main/resources/static/img/student/image_student" + numToString(randomNumberForStudent) + ".bmp";
         File image = new File(absolutePath + path);
         return Files.readAllBytes(image.toPath());
     }

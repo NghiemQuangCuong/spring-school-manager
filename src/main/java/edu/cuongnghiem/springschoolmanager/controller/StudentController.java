@@ -1,15 +1,18 @@
 package edu.cuongnghiem.springschoolmanager.controller;
 
+import edu.cuongnghiem.springschoolmanager.command.MarkCommand;
 import edu.cuongnghiem.springschoolmanager.command.StudentCommand;
+import edu.cuongnghiem.springschoolmanager.entity.ExamType;
 import edu.cuongnghiem.springschoolmanager.service.StudentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by cuongnghiem on 25/10/2021
@@ -58,5 +61,27 @@ public class StudentController {
         model.addAttribute("name", name);
         model.addAttribute("phone", phone);
         return "/student/index";
+    }
+
+    @GetMapping("/{id}")
+    public String getDetails(Model model,
+                             @PathVariable String id) {
+        Long studentId = Long.valueOf(id);
+        StudentCommand studentCommand = studentService.findStudentCommandById(studentId);
+        model.addAttribute("student", studentCommand);
+
+        Map<String, Map<ExamType, MarkCommand>> markMap =
+                studentService.getMarkMapSubjectKey(studentId);
+        List<String> subjectName = new ArrayList<>(markMap.keySet())
+                .stream().sorted(String::compareTo).collect(Collectors.toList());
+        model.addAttribute("subjectNames", subjectName);
+        model.addAttribute("examTypesSemester1",
+                Arrays.stream(ExamType.values()).filter(examType -> examType.getSemester().equals("HK1"))
+                        .collect(Collectors.toList()));
+        model.addAttribute("examTypesSemester2",
+                Arrays.stream(ExamType.values()).filter(examType -> examType.getSemester().equals("HK2"))
+                        .collect(Collectors.toList()));
+        model.addAttribute("markMap", markMap);
+        return "/student/details";
     }
 }
