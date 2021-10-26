@@ -4,10 +4,7 @@ import edu.cuongnghiem.springschoolmanager.command.TeacherCommand;
 import edu.cuongnghiem.springschoolmanager.service.TeacherService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -57,5 +54,14 @@ public class TeacherController {
         model.addAttribute("name", name);
         model.addAttribute("phone", phone);
         return "/teacher/index";
+    }
+
+    @GetMapping("/{id}")
+    public String getDetails(Model model,
+                             @PathVariable String id) {
+        Long teacherId = Long.valueOf(id);
+        model.addAttribute("teacher", teacherService.findTeacherCommandById(teacherId));
+        model.addAttribute("classes", teacherService.findClassRoomTeachByThisTeacher(teacherId));
+        return "/teacher/details";
     }
 }

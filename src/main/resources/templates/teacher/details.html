@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="fragments/layout :: layout(~{::body}, 'teacher')">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="card mb-3 center mt-5" style="max-width: 540px;">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img th:src="@{/image/teacher/{id}(id=${teacher.id})}" class="img-fluid rounded-start" alt="Student Image">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body user-select-none">
+                <h5 class="card-title" th:text="${teacher.firstName + ' ' + teacher.lastName}">Teacher Name</h5>
+                <p class="card-text fw-bold" th:inline="text">
+                    [[#{address}]]: <span class="fw-normal">[[${teacher.contactCommand?.address}]]</span>
+                    <br />
+                    [[#{city}]]: <span class="fw-normal">[[${teacher.contactCommand?.city}]]</span>
+                    <br />
+                    [[#{phone1}]]: <span class="fw-normal">[[${teacher.contactCommand?.phone1}]]</span>
+                    <br />
+                    [[#{phone2}]]: <span class="fw-normal">[[${teacher.contactCommand?.phone2}]]</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container center">
+    <div class="card mt-5">
+        <h1 class="card-header text-center bg-info bg-opacity-25 p-3" th:text="#{classRoom}">Class Room</h1>
+        <div class="card-body user-select-none">
+            <div class="row">
+                <div th:each="class : ${classes}" class="col-lg-4 col-md-6 col-8">
+                    <div class="card mt-5" style="width: 18rem;">
+                        <a th:href="@{/class/{classId}(classId=${class.id})}">
+                            <img th:src="@{/image/class/{id}(id=${class.id})}" class="card-img-top" alt="Class Picture">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a class="link" th:text="${class.name}" th:href="@{/class/{classId}(classId=${class.id})}">Class Name</a>
+                            </h5>
+                            <hr />
+                            <p class="card-text fw-bold user-select-none" th:inline="text">
+                                [[#{specialized}]]: <span class="fw-normal" th:text="${class.classTypeCommand.name}"></span>
+                                <br />
+                                [[#{students}]]: <span class="fw-normal" th:text="${class.numberOfStudents}"></span>
+                                <br />
+                                [[#{teachers}]]: <span class="fw-normal" th:text="${class.numberOfTeachers}"></span>
+                            </p>
+                            <a th:href="@{/class/{classId}(classId=${class.id})}" class="btn btn-primary" th:text="#{details}">Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container center">
+    <div class="card mt-5">
+        <h1 class="card-header text-center bg-primary bg-opacity-25 p-3" th:text="#{analyze}">Analyze</h1>
+        <div class="card-body user-select-none">
+        </div>
+    </div>
+</div>
+</body>
+</html>
