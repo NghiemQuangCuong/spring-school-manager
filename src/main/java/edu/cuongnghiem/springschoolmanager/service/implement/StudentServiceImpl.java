@@ -15,7 +15,9 @@ import edu.cuongnghiem.springschoolmanager.service.StudentService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -46,45 +48,33 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<StudentCommand> findStudentCommandByName(String name) {
-        List<StudentCommand> result = new ArrayList<>();
-        List<Student> students =
-                studentRepository.findAll()
-                        .stream().filter(student ->
-                                (
-                                        student.getFirstName().equalsIgnoreCase(name) ||
-                                        student.getLastName().equalsIgnoreCase(name) ||
-                                        (student.getFirstName() + " " + student.getLastName()).equalsIgnoreCase(name)
-                                        ))
-                        .collect(Collectors.toList());
-        students.forEach(student -> {
-            result.add(studentConverter.entityToCommand(student));
-                });
-        result.sort(Comparator.comparing(s -> (s.getFirstName() + " " + s.getLastName())));
-        return result;
+        return studentRepository.findAll()
+                .stream().filter(student ->
+                        (
+                                student.getFirstName().equalsIgnoreCase(name) ||
+                                student.getLastName().equalsIgnoreCase(name) ||
+                                (student.getFirstName() + " " + student.getLastName()).equalsIgnoreCase(name)
+                                ))
+                .map(studentConverter::entityToCommand)
+                .sorted((s1, s2) -> (s1.getFirstName() + " " + s2.getFirstName()).compareTo(s2.getFirstName() + " " + s2.getLastName()))
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<StudentCommand> findStudentCommandByPhone(String phone) {
-        List<StudentCommand> result = new ArrayList<>();
-        List<Student> students = studentRepository.findAll()
+        return studentRepository.findAll()
                 .stream().filter(student ->
                         (student.getContact().getPhone1().equals(phone) || student.getContact().getPhone2().equals(phone))
                 )
-                .collect(Collectors.toList());
-        students.forEach(student -> {
-            result.add(studentConverter.entityToCommand(student));
-        });
-        return result;
+                .map(studentConverter::entityToCommand).collect(Collectors.toList());
     }
 
     @Override
     public List<StudentCommand> findStudentCommandByNameAndPhone(String name, String phone) {
-        List<StudentCommand> result =
-                findStudentCommandByName(name)
-                        .stream().filter(student ->
-                                (student.getContactCommand().getPhone1().equals(phone) || student.getContactCommand().getPhone2().equals(phone))
-                        ).collect(Collectors.toList());
-        return result;
+        return findStudentCommandByName(name)
+                .stream().filter(student ->
+                        (student.getContactCommand().getPhone1().equals(phone) || student.getContactCommand().getPhone2().equals(phone))
+                ).collect(Collectors.toList());
     }
 
     @Override

@@ -42,18 +42,18 @@ public class StudentController {
             return "/student/index";
         }
         if (phone.trim().equals("")) {
-            List<StudentCommand> lists = studentService.findStudentCommandByName(name);
+            List<StudentCommand> lists = studentService.findStudentCommandByName(name.trim());
             if (lists.isEmpty())
                 model.addAttribute("notFound", "notFound");
             model.addAttribute("students", lists);
         }
         else if (name.trim().equals("")) {
-            List<StudentCommand> lists = studentService.findStudentCommandByPhone(phone);
+            List<StudentCommand> lists = studentService.findStudentCommandByPhone(phone.trim());
             if (lists.isEmpty())
                 model.addAttribute("notFound", "notFound");
             model.addAttribute("students", lists);
         } else {
-            List<StudentCommand> lists = studentService.findStudentCommandByNameAndPhone(name, phone);
+            List<StudentCommand> lists = studentService.findStudentCommandByNameAndPhone(name.trim(), phone.trim());
             if (lists.isEmpty())
                 model.addAttribute("notFound", "notFound");
             model.addAttribute("students", lists);

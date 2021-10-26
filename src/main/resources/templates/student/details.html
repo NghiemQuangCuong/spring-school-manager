@@ -14,15 +14,15 @@
                 <div class="card-body">
                     <h5 class="card-title" th:text="${student.firstName + ' ' + student.getLastName()}">Student Name</h5>
                     <p class="card-text fw-bold" th:inline="text">
-                        [[#{address}]]: <span class="fw-normal">[[${student.contactCommand.address}]]</span>
+                        [[#{address}]]: <span class="fw-normal">[[${student.contactCommand?.address}]]</span>
                         <br />
-                        [[#{city}]]: <span class="fw-normal">[[${student.contactCommand.city}]]</span>
+                        [[#{city}]]: <span class="fw-normal">[[${student.contactCommand?.city}]]</span>
                         <br />
-                        [[#{phone1}]]: <span class="fw-normal">[[${student.contactCommand.phone1}]]</span>
+                        [[#{phone1}]]: <span class="fw-normal">[[${student.contactCommand?.phone1}]]</span>
                         <br />
-                        [[#{phone2}]]: <span class="fw-normal">[[${student.contactCommand.phone2}]]</span>
+                        [[#{phone2}]]: <span class="fw-normal">[[${student.contactCommand?.phone2}]]</span>
                         <br />
-                        [[#{classRoom}]]: <span class="fw-normal"><a th:href="@{/class/{id}(id=${student.classRoomCommand.id})}">[[${student.classRoomCommand.name}]]</a></span>
+                        [[#{classRoom}]]: <span class="fw-normal"><a th:href="@{/class/{id}(id=${student.classRoomCommand?.id})}">[[${student.classRoomCommand.name}]]</a></span>
                     </p>
                 </div>
             </div>
