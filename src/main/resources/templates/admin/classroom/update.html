@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="fragments/admin :: admin(~{::body}, 'editClass')">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div class="center mt-5 pt-3">
+  <div class="card user-select-none">
+    <div class="card-header fs-5 bg-primary text-white">
+      Edit Classroom
+    </div>
+    <div class="card-body">
+
+      <div class="row">
+        <div class="col-lg-4 col-6">
+          <form>
+            <div class="input-group">
+              <select name="classId" class="form-select">
+                <option th:each="class : ${classRooms}"
+                        th:selected="${class.id == classChosen}"
+                        th:value="${class.id}"
+                        th:text="${class.name}"></option>
+              </select>
+              <button class="btn btn-success" th:text="#{find}"></button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <form th:if="${classRoom}" th:object="${classRoom}" th:method="POST">
+            <input type="hidden" th:field="${classRoom.id}">
+            <div class="container">
+              <div class="row">
+                <div class="col-8 col-lg-6">
+                  <div class="input-group mt-3">
+                    <input type="text" class="form-control" placeholder="Classroom's name"
+                           th:field="*{name}" th:errorclass="is-invalid">
+                    <div th:if="${#fields.errors('name')}" class="invalid-feedback"
+                         th:each="error : ${#fields.errors('name')}"
+                         th:text="${error}">
+                      Invalid feedback
+                    </div>
+                  </div>
+
+                  <div class="input-group mt-3">
+                    <select th:field="*{classTypeCommand}" class="form-select">
+                      <option th:each="classType : ${classTypes}"
+                              th:selected="${classRoom.classTypeCommand?.equals(classType)}"
+                              th:value="${classType.id}"
+                              th:text="${classType.name}">Class Type</option>
+                    </select>
+                  </div>
+
+                  <button type="submit" class="btn btn-success mt-3" th:text="#{update}">Update</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -22,6 +22,8 @@ import java.beans.PropertyEditorSupport;
 @RequestMapping("/admin/class")
 public class AdminClassRoomController {
 
+    private final String NEW_CLASSROOM_VIEW = "/admin/classroom/new";
+
     private final ClassRoomService classRoomService;
     private final ClassTypeService classTypeService;
     private final ClassRoomConverter classRoomConverter;
@@ -46,7 +48,7 @@ public class AdminClassRoomController {
     public String getNewClassRoom(Model model) {
         model.addAttribute("classRoom", new ClassRoomCommand());
         model.addAttribute("classTypes", classTypeService.findAllCommand());
-        return "/admin/classroom/newOrUpdate";
+        return NEW_CLASSROOM_VIEW;
     }
 
     @PostMapping("/new")
@@ -55,14 +57,48 @@ public class AdminClassRoomController {
     ) {
         model.addAttribute("classTypes", classTypeService.findAllCommand());
         if (bindingResult.hasErrors()) {
-            return "/admin/classroom/newOrUpdate";
+            return NEW_CLASSROOM_VIEW;
         } else
         if (!classRoomService.isUniqueClassRoomName(classRoom.getName())) {
             bindingResult.rejectValue("name", "errorNameIsOccupied", "This name is occupied");
-            return "/admin/classroom/newOrUpdate";
+            return NEW_CLASSROOM_VIEW;
         }
 
         classRoomService.saveClassRoom(classRoomConverter.commandToEntity(classRoom));
         return "redirect:/admin/class/new";
+    }
+
+    @GetMapping("/edit")
+    public String getEditView(Model model,
+                              @RequestParam(defaultValue = "") String classId) {
+        model.addAttribute("classRooms", classRoomService.getAllClassRoom());
+        if (!classId.equals(""))
+        {
+            model.addAttribute("classTypes", classTypeService.findAllCommand());
+            model.addAttribute("classRoom", classRoomService.getClassRoomCommandById(Long.valueOf(classId)));
+            model.addAttribute("classChosen", Long.valueOf(classId));
+        }
+        return "/admin/classroom/update";
+    }
+
+    @PostMapping("/edit")
+    public String editClassRoom(@Valid @ModelAttribute("classRoom") ClassRoomCommand classRoom,
+                                BindingResult bindingResult,
+                                Model model) {
+        model.addAttribute("classRooms", classRoomService.getAllClassRoom());
+        model.addAttribute("classTypes", classTypeService.findAllCommand());
+        model.addAttribute("classChosen", classRoom.getId());
+        if (bindingResult.hasErrors()) {
+            return "/admin/classroom/update";
+        } else
+        if (!classRoomService.isUniqueClassRoomName(classRoom.getName())
+                &&
+                !classRoom.getName().equals(classRoomService.getClassRoomCommandById(classRoom.getId()).getName())) {
+            bindingResult.rejectValue("name", "errorNameIsOccupied", "This name is occupied");
+            return "/admin/classroom/update";
+        }
+
+        classRoomService.saveClassRoom(classRoomConverter.commandToEntity(classRoom));
+        return "redirect:/admin/class/edit";
     }
 }

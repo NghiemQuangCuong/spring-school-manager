@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -157,11 +158,10 @@ public class ClassRoomServiceImpl implements ClassRoomService {
 
     @Override
     public List<ClassRoomCommand> getAllClassRoom() {
-        List<ClassRoomCommand> result = new ArrayList<>();
-        classRoomRepository.findAll().forEach(classRoom -> {
-            result.add(classRoomConverter.entityToCommand(classRoom));
-        });
-        return result;
+        return classRoomRepository.findAll().stream()
+                .map(classRoomConverter::entityToCommand)
+                .sorted(Comparator.comparing(ClassRoomCommand::getName))
+                .collect(Collectors.toList());
     }
 
     private int getTotalPage(int size, int rpp) {

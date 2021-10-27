@@ -11,7 +11,7 @@
             <h3 class="text-black-50 user-select-none text-center" th:text="#{classRoomText}">Class Room</h3>
             <div class="list-group mt-3">
                 <a th:href="@{/admin/class/new}" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('addClass') ? 'active' : ''}">Add new classroom</a>
-                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('editClass') ? 'active' : ''}">Edit classroom</a>
+                <a th:href="@{/admin/class/edit}" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('editClass') ? 'active' : ''}">Edit classroom</a>
                 <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('removeStuClass') ? 'active' : ''}">Remove student from classroom</a>
                 <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('removeTeaClass') ? 'active' : ''}">Remove teacher from classroom</a>
                 <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('removeClass') ? 'active' : ''}">Remove classroon</a>
