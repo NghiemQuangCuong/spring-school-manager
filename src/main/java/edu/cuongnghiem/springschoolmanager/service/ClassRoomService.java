@@ -13,13 +13,20 @@ import java.util.List;
 
 public interface ClassRoomService {
     ClassRoomCommand getClassRoomCommandById(Long id);
+
     List<ClassRoomCommand> getClassRoomCommandByClassTypeName(String name);
     List<ClassRoomCommand> getClassRoomCommand();
     List<ClassRoomCommand> getClassRoomCommandByClassTypeNameAndByName(String classTypeName, String name);
+    List<ClassRoomCommand> getAllClassRoom();
+
     ClassRoom getClassRoomById(Long id);
     ClassRoom saveClassRoom(ClassRoom classRoom);
+
     List<StudentCommand> getStudentsCommandFromClassRoomId(Long id);
+
     Page<StudentCommand> getStudentsCommandPagingFromClassRoomIdAndName(Long id, int page, int recordsPerPage, String name);
+
     long numberOfStudentsOfClassRoomId(Long id);
-    List<ClassRoomCommand> getAllClassRoom();
+
+    boolean isUniqueClassRoomName(String name);
 }

@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,7 +28,11 @@ public class ClassRoomCommand {
     }
 
     private Long id;
+
+    @NotBlank(message = "Name must not be blank")
+    @Size(min = 3, max = 50, message = "Name's length must between 3 and 50 characters")
     private String name;
+
     private ClassTypeCommand classTypeCommand;
     private Set<TeacherCommand> teacherCommands = new HashSet<>();
 

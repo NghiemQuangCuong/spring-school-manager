@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="admin(body, currentTask)" th:replace="fragments/layout :: layout(~{::body}, 'admin')">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="center">
+    <div class="row ps-5 pe-5">
+        <div class="col-4 p-3">
+            <h3 class="text-black-50 user-select-none text-center" th:text="#{classRoomText}">Class Room</h3>
+            <div class="list-group mt-3">
+                <a th:href="@{/admin/class/new}" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('addClass') ? 'active' : ''}">Add new classroom</a>
+                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('editClass') ? 'active' : ''}">Edit classroom</a>
+                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('removeStuClass') ? 'active' : ''}">Remove student from classroom</a>
+                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('removeTeaClass') ? 'active' : ''}">Remove teacher from classroom</a>
+                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('removeClass') ? 'active' : ''}">Remove classroon</a>
+            </div>
+            <hr />
+            <h3 class="text-black-50 user-select-none text-center" th:text="#{studentText}">Student</h3>
+            <div class="list-group mt-3">
+                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('addStudent') ? 'active' : ''}">Add new student</a>
+                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('editStudent') ? 'active' : ''}">Edit student</a>
+                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('addStuClass') ? 'active' : ''}">Add student to a class</a>
+                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('editMarkStudent') ? 'active' : ''}">Edit mark from a student</a>
+                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('removeStudent') ? 'active' : ''}">Remove student</a>
+            </div>
+            <hr />
+            <h3 class="text-black-50 user-select-none text-center" th:text="#{teacherText}">Teacher</h3>
+            <div class="list-group mt-3">
+                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('addTeacher') ? 'active' : ''}">Add new teacher</a>
+                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('editTeacher') ? 'active' : ''}">Edit teacher</a>
+                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('addTeacherToClass') ? 'active' : ''}">Add teacher to classes</a>
+                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('removeTeacher') ? 'active' : ''}">Remove teacher</a>
+            </div>
+            <hr />
+            <h3 class="text-black-50 user-select-none text-center" th:text="#{more}">More</h3>
+            <div class="list-group mt-3">
+                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('moveStuClasses') ? 'active' : ''}">Move student between classes</a>
+                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('addMarkStudents') ? 'active' : ''}">Add mark to students by exam type</a>
+            </div>
+        </div>
+        <div class="col-8">
+            <th:block th:include="${body}" />
+        </div>
+    </div>
+</div>
+</body>
+</html>

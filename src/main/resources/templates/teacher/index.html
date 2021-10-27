@@ -19,9 +19,9 @@
             </div>
         </div>
     </form>
-    <h3  th:if="${notFound}" class="text-black-50" th:text="#{notFoundTeacher}">Not found</h3>
+    <h3  th:if="${notFound}" class="text-black-50 user-select-none" th:text="#{notFoundTeacher}">Not found</h3>
     </h3>
-    <table class="table table-striped table-hover mt-5">
+    <table class="table table-striped table-hover mt-5 user-select-none">
         <thead>
         <tr>
             <th scope="col" th:text="#{firstName}">First Name</th>

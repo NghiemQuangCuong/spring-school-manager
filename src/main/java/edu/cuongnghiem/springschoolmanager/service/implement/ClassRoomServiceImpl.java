@@ -147,6 +147,15 @@ public class ClassRoomServiceImpl implements ClassRoomService {
     }
 
     @Override
+    public boolean isUniqueClassRoomName(String name) {
+        List<ClassRoom> classRooms = classRoomRepository.findAll();
+        for (ClassRoom cr : classRooms)
+            if (cr.getName().equals(name))
+                return false;
+        return true;
+    }
+
+    @Override
     public List<ClassRoomCommand> getAllClassRoom() {
         List<ClassRoomCommand> result = new ArrayList<>();
         classRoomRepository.findAll().forEach(classRoom -> {

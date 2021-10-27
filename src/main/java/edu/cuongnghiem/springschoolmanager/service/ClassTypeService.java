@@ -1,5 +1,9 @@
 package edu.cuongnghiem.springschoolmanager.service;
 
+import edu.cuongnghiem.springschoolmanager.command.ClassTypeCommand;
+import edu.cuongnghiem.springschoolmanager.entity.ClassType;
+
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -8,4 +12,7 @@ import java.util.Set;
 
 public interface ClassTypeService {
     Set<String> getAllName();
+    List<ClassType> findAll();
+    List<ClassTypeCommand> findAllCommand();
+    ClassTypeCommand findCommandById(Long id);
 }
