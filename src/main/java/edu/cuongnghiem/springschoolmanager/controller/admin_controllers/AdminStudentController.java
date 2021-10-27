@@ -5,6 +5,7 @@ import edu.cuongnghiem.springschoolmanager.command.StudentCommand;
 import edu.cuongnghiem.springschoolmanager.converters.ContactConverter;
 import edu.cuongnghiem.springschoolmanager.converters.StudentConverter;
 import edu.cuongnghiem.springschoolmanager.entity.Student;
+import edu.cuongnghiem.springschoolmanager.exception.NotFoundException;
 import edu.cuongnghiem.springschoolmanager.service.StudentService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -98,5 +99,41 @@ public class AdminStudentController {
         studentService.save(student);
 
         return "redirect:/admin/student/edit";
+    }
+
+    @GetMapping("/remove")
+    public String getStudentListRemove(Model model,
+                                 @RequestParam(name = "name", defaultValue = "") String name,
+                                 @RequestParam(name = "phone", defaultValue = "") String phone,
+                                 @RequestParam(name = "page", defaultValue = "1") String page) {
+        List<StudentCommand> students;
+
+        if (phone.trim().equals("")) {
+            students = studentService.findStudentCommandByName(name);
+        } else if (name.trim().equals("")) {
+            students = studentService.findStudentCommandByPhone(phone);
+        } else {
+            students = studentService.findStudentCommandByNameAndPhone(name, phone);
+        }
+
+        Page<StudentCommand> studentPage = studentService.convertToPage(students, Integer.parseInt(page), 10);
+        model.addAttribute("name", name);
+        model.addAttribute("phone", phone);
+        model.addAttribute("students", studentPage.getContent());
+        model.addAttribute("totalPage", studentPage.getTotalPages());
+        model.addAttribute("studentsFound", studentPage.getTotalElements());
+        model.addAttribute("page", Long.valueOf(page));
+
+        return "/admin/student/remove";
+    }
+
+    @PostMapping("/{id}/remove")
+    public String removeStudent(@PathVariable String id){
+        Student student = studentService.findStudentById(Long.valueOf(id));
+        if (student == null)
+            throw new NotFoundException("Student not found, id = " + id);
+
+        studentService.deleteById(Long.valueOf(id));
+        return "redirect:/admin/student/remove";
     }
 }

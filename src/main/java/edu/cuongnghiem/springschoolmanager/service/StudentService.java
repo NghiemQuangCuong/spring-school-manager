@@ -24,4 +24,5 @@ public interface StudentService {
     Student save(Student student);
     Map<String, Map<ExamType, MarkCommand>> getMarkMapSubjectKey(Long id);
     Page<StudentCommand> convertToPage(List<StudentCommand> studentCommandList, int page, int recordPerPage);
+    void deleteById(Long id);
 }

@@ -23,7 +23,7 @@
                 <a th:href="@{/admin/student/edit}" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('editStudent') ? 'active' : ''}" th:text="#{adminStudentEdit}">Edit student</a>
                 <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('addStuClass') ? 'active' : ''}" th:text="#{adminStudentAddClass}">Add student to a class</a>
                 <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('editMarkStudent') ? 'active' : ''}" th:text="#{adminStudentEditMark}">Edit mark from a student</a>
-                <a th:href="@{/admin/student/remove}" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('removeStudent') ? 'active' : ''}" th:text="#{adminStudentRemove}">Remove student</a>
+                <a th:href="@{/admin/student/remove}" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('removeStudent') ? 'bg-danger text-white' : ''}" th:text="#{adminStudentRemove}">Remove student</a>
             </div>
             <hr />
             <h3 class="text-black-50 user-select-none text-center" th:text="#{teacherText}">Teacher</h3>

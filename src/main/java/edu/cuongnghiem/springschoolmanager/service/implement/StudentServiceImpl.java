@@ -131,6 +131,11 @@ public class StudentServiceImpl implements StudentService {
         return new PageImpl<>(studentCommandList.subList(min, max), PageRequest.of(page-1, recordPerPage), studentCommandList.size());
     }
 
+    @Override
+    public void deleteById(Long id) {
+        studentRepository.deleteById(id);
+    }
+
     private int getTotalPage(int size, int rpp) {
         if (size % rpp != 0)
             return (size/rpp) + 1;
