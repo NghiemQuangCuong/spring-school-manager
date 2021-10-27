@@ -12,9 +12,13 @@ import edu.cuongnghiem.springschoolmanager.exception.NotFoundException;
 import edu.cuongnghiem.springschoolmanager.repository.StudentRepository;
 import edu.cuongnghiem.springschoolmanager.repository.SubjectRepository;
 import edu.cuongnghiem.springschoolmanager.service.StudentService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -112,5 +116,25 @@ public class StudentServiceImpl implements StudentService {
             result.get(subject.getName()).replace(examType, markConverter.entityToCommand(mark));
         });
         return result;
+    }
+
+    @Override
+    public Page<StudentCommand> convertToPage(List<StudentCommand> studentCommandList, int page, int recordPerPage) {
+        if (studentCommandList.size() == 0)
+            return new PageImpl<>(new ArrayList<>());
+        int totalPage = getTotalPage(studentCommandList.size(), recordPerPage);
+        if (page > totalPage || page <= 0)
+            throw new NotFoundException("Page exceed range");
+        int min = recordPerPage * (page-1);
+        int max = (page == totalPage) ? studentCommandList.size() : page * recordPerPage ;
+
+        return new PageImpl<>(studentCommandList.subList(min, max), PageRequest.of(page-1, recordPerPage), studentCommandList.size());
+    }
+
+    private int getTotalPage(int size, int rpp) {
+        if (size % rpp != 0)
+            return (size/rpp) + 1;
+        else
+            return (size / rpp);
     }
 }

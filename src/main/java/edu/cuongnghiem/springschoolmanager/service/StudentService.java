@@ -4,6 +4,7 @@ import edu.cuongnghiem.springschoolmanager.command.MarkCommand;
 import edu.cuongnghiem.springschoolmanager.command.StudentCommand;
 import edu.cuongnghiem.springschoolmanager.entity.ExamType;
 import edu.cuongnghiem.springschoolmanager.entity.Student;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Map;
@@ -22,4 +23,5 @@ public interface StudentService {
     Student findStudentById(Long id);
     Student save(Student student);
     Map<String, Map<ExamType, MarkCommand>> getMarkMapSubjectKey(Long id);
+    Page<StudentCommand> convertToPage(List<StudentCommand> studentCommandList, int page, int recordPerPage);
 }
