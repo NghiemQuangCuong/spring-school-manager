@@ -29,4 +29,6 @@ public interface ClassRoomService {
     long numberOfStudentsOfClassRoomId(Long id);
 
     boolean isUniqueClassRoomName(String name);
+
+    void deleteClassRoom(Long id);
 }

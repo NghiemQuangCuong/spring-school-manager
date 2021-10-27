@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="fragments/admin :: admin(~{::body}, 'removeClass')">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="center mt-5 pt-3">
+    <div class="card user-select-none">
+        <div class="card-header fs-5 bg-danger text-white">
+            Remove Classroom
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-4 col-6">
+                    <form th:method="POST">
+                        <div class="input-group">
+                            <select name="classId" class="form-select">
+                                <option th:each="class : ${classRooms}"
+                                        th:value="${class.id}"
+                                        th:text="${class.name}"></option>
+                            </select>
+                        </div>
+                        <div class="text-danger" th:text="#{agreeRemoveClass}"></div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="agree" value="agree" id="agree"
+                                   th:classappend="${(mustAgree != null) ? 'is-invalid' : ''}">
+                            <label class="form-check-label" for="agree" th:text="#{agree}">
+                                Default checkbox
+                            </label>
+                            <div th:if="${mustAgree}" class="invalid-feedback"
+                                 th:text="${mustAgree}">
+                                Invalid feedback
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-danger" th:text="#{remove}"></button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

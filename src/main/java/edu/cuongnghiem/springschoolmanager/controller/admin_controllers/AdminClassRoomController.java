@@ -101,4 +101,24 @@ public class AdminClassRoomController {
         classRoomService.saveClassRoom(classRoomConverter.commandToEntity(classRoom));
         return "redirect:/admin/class/edit";
     }
+
+    @GetMapping("/remove")
+    public String getRemoveView(Model model) {
+        model.addAttribute("classRooms", classRoomService.getAllClassRoom());
+        return "admin/classroom/remove";
+    }
+
+    @PostMapping("/remove")
+    public String removeClass(Model model,
+                              @RequestParam(value = "classId", required = false) String classRoomId,
+                              @RequestParam(value = "agree", required = false) String agree) {
+        if (agree == null) {
+            model.addAttribute("classRooms", classRoomService.getAllClassRoom());
+            model.addAttribute("mustAgree", "You must agree to continue");
+            return "admin/classroom/remove";
+        }
+        if (classRoomId != null)
+            classRoomService.deleteClassRoom(Long.valueOf(classRoomId));
+        return "redirect:/admin/class/remove";
+    }
 }

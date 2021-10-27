@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -154,6 +155,16 @@ public class ClassRoomServiceImpl implements ClassRoomService {
             if (cr.getName().equals(name))
                 return false;
         return true;
+    }
+
+    @Override
+    public void deleteClassRoom(Long id) {
+        ClassRoom classRoom = getClassRoomById(id);
+        classRoom.getStudents().forEach(student -> {
+            student.setClassRoom(null);
+        });
+        classRoom.setTeachers(new HashSet<>());
+        classRoomRepository.delete(classRoom);
     }
 
     @Override

@@ -10,28 +10,28 @@
         <div class="col-4 p-3">
             <h3 class="text-black-50 user-select-none text-center" th:text="#{classRoomText}">Class Room</h3>
             <div class="list-group mt-3">
-                <a th:href="@{/admin/class/new}" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('addClass') ? 'active' : ''}">Add new classroom</a>
-                <a th:href="@{/admin/class/edit}" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('editClass') ? 'active' : ''}">Edit classroom</a>
-                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('removeStuClass') ? 'active' : ''}">Remove student from classroom</a>
-                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('removeTeaClass') ? 'active' : ''}">Remove teacher from classroom</a>
-                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('removeClass') ? 'active' : ''}">Remove classroon</a>
+                <a th:href="@{/admin/class/new}" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('addClass') ? 'active' : ''}" th:text="#{adminClassNew}">Add new classroom</a>
+                <a th:href="@{/admin/class/edit}" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('editClass') ? 'active' : ''}" th:text="#{adminClassEdit}">Edit classroom</a>
+                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('removeStuClass') ? 'active' : ''}" th:text="#{adminClassRemoveStudent}">Remove student from classroom</a>
+                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('removeTeaClass') ? 'active' : ''}" th:text="#{adminClassRemoveTeacher}">Remove teacher from classroom</a>
+                <a th:href="@{/admin/class/remove}" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('removeClass') ? 'bg-danger text-white' : ''}" th:text="#{adminClassRemoveClass}">Remove classroom</a>
             </div>
             <hr />
             <h3 class="text-black-50 user-select-none text-center" th:text="#{studentText}">Student</h3>
             <div class="list-group mt-3">
-                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('addStudent') ? 'active' : ''}">Add new student</a>
-                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('editStudent') ? 'active' : ''}">Edit student</a>
-                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('addStuClass') ? 'active' : ''}">Add student to a class</a>
-                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('editMarkStudent') ? 'active' : ''}">Edit mark from a student</a>
-                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('removeStudent') ? 'active' : ''}">Remove student</a>
+                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('addStudent') ? 'active' : ''}" th:text="#{adminStudentNew}">Add new student</a>
+                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('editStudent') ? 'active' : ''}" th:text="#{adminStudentEdit}">Edit student</a>
+                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('addStuClass') ? 'active' : ''}" th:text="#{adminStudentAddClass}">Add student to a class</a>
+                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('editMarkStudent') ? 'active' : ''}" th:text="#{adminStudentEditMark}">Edit mark from a student</a>
+                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('removeStudent') ? 'active' : ''}" th:text="#{adminStudentRemove}">Remove student</a>
             </div>
             <hr />
             <h3 class="text-black-50 user-select-none text-center" th:text="#{teacherText}">Teacher</h3>
             <div class="list-group mt-3">
-                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('addTeacher') ? 'active' : ''}">Add new teacher</a>
-                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('editTeacher') ? 'active' : ''}">Edit teacher</a>
-                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('addTeacherToClass') ? 'active' : ''}">Add teacher to classes</a>
-                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('removeTeacher') ? 'active' : ''}">Remove teacher</a>
+                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('addTeacher') ? 'active' : ''}" th:text="#{adminTeacherNew}">Add new teacher</a>
+                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('editTeacher') ? 'active' : ''}" th:text="#{adminTeacherEdit}">Edit teacher</a>
+                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('addTeacherToClass') ? 'active' : ''}" th:text="#{adminTeacherAddClass}">Add teacher to classes</a>
+                <a href="#" class="list-group-item list-group-item-action fs-5" th:classappend="${currentTask.equals('removeTeacher') ? 'active' : ''}" th:text="#{adminTeacherRemove}">Remove teacher</a>
             </div>
             <hr />
             <h3 class="text-black-50 user-select-none text-center" th:text="#{more}">More</h3>
