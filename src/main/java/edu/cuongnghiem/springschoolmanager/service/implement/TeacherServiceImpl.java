@@ -6,8 +6,12 @@ import edu.cuongnghiem.springschoolmanager.converters.ClassRoomConverter;
 import edu.cuongnghiem.springschoolmanager.converters.TeacherConverter;
 import edu.cuongnghiem.springschoolmanager.entity.ClassRoom;
 import edu.cuongnghiem.springschoolmanager.entity.Teacher;
+import edu.cuongnghiem.springschoolmanager.exception.NotFoundException;
 import edu.cuongnghiem.springschoolmanager.repository.TeacherRepository;
 import edu.cuongnghiem.springschoolmanager.service.TeacherService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -83,5 +87,36 @@ public class TeacherServiceImpl implements TeacherService {
             result.add(command);
         });
         return result;
+    }
+
+    @Override
+    public Page<TeacherCommand> convertToPage(List<TeacherCommand> teacherCommands, int page, int recordPerPage) {
+        if (teacherCommands.size() == 0)
+            return new PageImpl<>(new ArrayList<>());
+        int totalPage = getTotalPage(teacherCommands.size(), recordPerPage);
+        if (page > totalPage || page <= 0)
+            throw new NotFoundException("Page exceed range");
+        int min = recordPerPage * (page-1);
+        int max = (page == totalPage) ? teacherCommands.size() : page * recordPerPage ;
+
+        return new PageImpl<>(teacherCommands.subList(min, max), PageRequest.of(page-1, recordPerPage), teacherCommands.size());
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        Teacher teacher = teacherRepository.findById(id).orElse(null);
+        if (teacher == null)
+            throw new NotFoundException("Teacher not found, id = " + id);
+        teacher.getClasses().forEach(classRoom -> {
+            classRoom.getTeachers().remove(teacher);
+        });
+        teacherRepository.delete(teacher);
+    }
+
+    private int getTotalPage(int size, int rpp) {
+        if (size % rpp != 0)
+            return (size/rpp) + 1;
+        else
+            return (size / rpp);
     }
 }

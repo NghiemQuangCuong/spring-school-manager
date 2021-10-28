@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="fragments/admin :: admin(~{::body}, 'editTeacher')">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="center mt-5 pt-3">
+    <div class="card user-select-none">
+        <div class="card-header fs-5 bg-primary text-white" th:text="#{adminTeacherEdit}">
+            Edit teacher
+        </div>
+        <div class="card-body">
+            <form th:object="${teacher}" th:method="POST">
+                <input type="hidden" th:field="*{id}">
+                <div class="row">
+                    <div class="col-lg-6 col-8">
+                        <label class="form-label" th:text="#{firstName}">First Name</label>
+                        <br />
+                        <input class="form-control" type="text" th:field="*{firstName}" th:placeholder="#{teacherFirstName}" th:errorclass="'is-invalid'" />
+                        <div class="invalid-feedback"
+                             th:if="${#fields.hasErrors('firstName')}"
+                             th:each="error : ${#fields.errors('firstName')}"
+                             th:text="${error}">
+                            Error Feedback
+                        </div>
+                        <br />
+
+                        <label class="form-label" th:text="#{phone1}">Phone 1</label>
+                        <br />
+                        <input class="form-control" type="number" th:field="*{contactCommand.phone1}" th:placeholder="#{phone1}"/>
+
+                        <br />
+
+                        <label class="form-label" th:text="#{address}" th:placeholder="#{address}">Address</label>
+                        <br />
+                        <input class="form-control" type="text" th:field="*{contactCommand.address}" th:placeholder="#{address}" th:errorclass="'is-invalid'"/>
+                        <div class="invalid-feedback"
+                             th:if="${#fields.hasErrors('contactCommand.address')}"
+                             th:each="error : ${#fields.errors('contactCommand.address')}"
+                             th:text="${error}">
+                            Error Feedback
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-8">
+                        <label class="form-label" th:text="#{lastName}">Last Name</label>
+                        <br />
+                        <input class="form-control" type="text" th:field="*{lastName}" th:placeholder="#{teacherLastName}" th:errorclass="'is-invalid'"/>
+                        <div class="invalid-feedback"
+                             th:if="${#fields.hasErrors('lastName')}"
+                             th:each="error : ${#fields.errors('lastName')}"
+                             th:text="${error}">
+                            Error Feedback
+                        </div>
+
+                        <br />
+
+                        <label class="form-label" th:text="#{phone2}">Phone 2</label>
+                        <br />
+                        <input class="form-control" type="number" th:field="*{contactCommand.phone2}" th:placeholder="#{phone2}"/>
+
+                        <br />
+
+                        <label class="form-label" th:text="#{city}">City</label>
+                        <br />
+                        <input class="form-control" type="text" th:field="*{contactCommand.city}" th:placeholder="#{city}" th:errorclass="'is-invalid'"/>
+                        <div class="invalid-feedback"
+                             th:if="${#fields.hasErrors('contactCommand.city')}"
+                             th:each="error : ${#fields.errors('contactCommand.city')}"
+                             th:text="${error}">
+                            Error Feedback
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col">
+                        <button type="submit" class="btn btn-success" th:text="#{update}">Update</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
